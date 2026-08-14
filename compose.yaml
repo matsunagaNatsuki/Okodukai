@@ -1,0 +1,51 @@
+services:
+  app:
+    build:
+      context: ./okozukai-api
+      dockerfile: docker/php/Dockerfile
+    container_name: okozukai-app
+    working_dir: /var/www/html
+    volumes:
+      - ./okozukai-api:/var/www/html
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:alpine
+    container_name: okozukai-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./okozukai-api:/var/www/html
+      - ./okozukai-api/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.4
+    container_name: okozukai-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: okozukai
+      MYSQL_USER: okozukai
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: okozukai-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
