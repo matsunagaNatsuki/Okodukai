@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('child.profile.update') }}" enctype="multipart/form-data" data-loading data-loading-message="更新しています...">
+        <form method="POST" action="{{ route('child.profile.update') }}" enctype="multipart/form-data" data-loading data-loading-message="更新しています..." novalidate>
             @csrf
             @method('PUT')
 

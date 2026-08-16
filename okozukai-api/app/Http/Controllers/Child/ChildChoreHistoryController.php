@@ -10,6 +10,7 @@ class ChildChoreHistoryController extends Controller
 {
     public function __invoke(Request $request): View
     {
+        // お子様が行なったお手伝いの履歴と内容のデータをBDから取得する
         $records = $request->user()
             ->choreRecords()
             ->with([

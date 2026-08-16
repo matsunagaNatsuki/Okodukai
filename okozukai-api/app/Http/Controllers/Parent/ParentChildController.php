@@ -10,6 +10,7 @@ use Illuminate\View\View;
 
 class ParentChildController extends Controller
 {
+    // お子様一覧
     public function index(Request $request): View
     {
         $children = User::query()
@@ -23,6 +24,7 @@ class ParentChildController extends Controller
         ]);
     }
 
+    // お子様管理
     public function show(User $child): View
     {
         Gate::authorize('viewFamilyChild', $child);

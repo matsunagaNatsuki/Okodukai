@@ -20,6 +20,7 @@
         </section>
     @else
         <section class="saving-goal-card">
+            {{-- 現在残高が目標金額より高い時 --}}
             @if ($currentBalance >= $savingGoal->target_amount)
                 <div class="goal-achieved" role="status">
                     <span aria-hidden="true">🎉</span>

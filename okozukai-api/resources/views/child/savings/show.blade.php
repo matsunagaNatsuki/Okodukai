@@ -45,22 +45,38 @@
 
     <section class="form-card">
         <h2>{{ $savingGoal === null ? '貯金目標を登録' : '貯金目標を編集' }}</h2>
-        <form method="POST" action="{{ route('child.savings.store') }}" data-loading data-loading-message="保存しています...">
+        <form method="POST" action="{{ route('child.savings.store') }}" data-loading data-loading-message="保存しています..." novalidate>
             @csrf
             <div class="form-group">
-                <label class="form-label" for="item_name">欲しいもの <span class="required-label">必須</span></label>
+                <label class="form-label" for="item_name">
+                    欲しいもの
+                    <span class="required-label">必須</span>
+                </label>
                 <input class="form-control @error('item_name') is-invalid @enderror" id="item_name" name="item_name" type="text" value="{{ old('item_name', $savingGoal?->item_name) }}" maxlength="255" required autofocus>
-                @error('item_name')<p class="field-error">{{ $message }}</p>@enderror
+                @error('item_name')
+                <p class="field-error">
+                    {{ $message }}
+                </p>
+                @enderror
             </div>
             <div class="form-group">
-                <label class="form-label" for="target_amount">目標金額 <span class="required-label">必須</span></label>
+                <label class="form-label" for="target_amount">
+                    目標金額
+                    <span class="required-label">必須</span>
+                </label>
                 <div class="amount-field">
-                    <input class="form-control @error('target_amount') is-invalid @enderror" id="target_amount" name="target_amount" type="number" value="{{ old('target_amount', $savingGoal?->target_amount) }}" min="1" step="1" inputmode="numeric" required>
+                    <input class="form-control @error('target_amount') is-invalid @enderror" id="target_amount" name="target_amount" type="number" value="{{ old('target_amount', $savingGoal?->target_amount) }}" min="1" step="10" inputmode="numeric" required>
                     <span>円</span>
                 </div>
-                @error('target_amount')<p class="field-error">{{ $message }}</p>@enderror
+                @error('target_amount')
+                <p class="field-error">
+                    {{ $message }}
+                </p>
+                @enderror
             </div>
-            <button class="button button--primary button--block" type="submit">{{ $savingGoal === null ? '登録する' : '更新する' }}</button>
+            <button class="button button--primary button--block" type="submit">
+                {{ $savingGoal === null ? '登録する' : '更新する' }}
+            </button>
         </form>
     </section>
 @endsection

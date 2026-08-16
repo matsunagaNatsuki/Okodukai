@@ -13,12 +13,16 @@ use Illuminate\View\View;
 
 class ParentChorePerformanceController extends Controller
 {
-    public function __construct(private readonly ChoreRecordService $choreRecordService) {}
+    // お手伝いデータに紐付くテーブルを更新する処理を集約したクラス
+    public function __construct(private readonly ChoreRecordService $choreRecordService){}
 
+    // お手伝い実績登録
     public function create(User $child): View
     {
+        // ログインしている保護者が、指定された子どもの情報を閲覧してよいか
         Gate::authorize('viewFamilyChild', $child);
 
+        // 家族idに紐づいたお手伝い報酬設定
         $chores = Chore::query()
             ->where('family_id', request()->user()->family_id)
             ->orderBy('chore_name')
@@ -30,15 +34,21 @@ class ParentChorePerformanceController extends Controller
         ]);
     }
 
+    // お手伝い実績登録処理
     public function store(StoreChorePerformanceRequest $request, User $child): RedirectResponse
     {
+        // ログインしている保護者が、指定された子どもの情報を閲覧してよいか
         Gate::authorize('viewFamilyChild', $child);
 
+        // バリデーションを通過したデータを取得
         $validated = $request->validated();
+
+        // 家族idに紐づいたお手伝い報酬設定
         $chore = Chore::query()
             ->where('family_id', $request->user()->family_id)
             ->findOrFail($validated['chore_id']);
 
+        // ChoreRecordServiceクラスでお手伝いの新規登録処理を行う
         $this->choreRecordService->create($child, $chore, $request->user(), $validated);
 
         return redirect()

@@ -23,18 +23,21 @@
         <div class="child-grid">
             @foreach ($children as $child)
                 <a class="child-card" href="{{ route('parent.children.show', $child) }}">
+                        {{-- httpまたはhttpsから始まるか、またはprofile_imageカラムにある画像のパス名か？ --}}
                     @if ($child->profile_image)
                         <img
                             class="child-card__avatar"
                             src="{{ str_starts_with($child->profile_image, 'http://') || str_starts_with($child->profile_image, 'https://') || str_starts_with($child->profile_image, '/') ? $child->profile_image : \Illuminate\Support\Facades\Storage::disk('public')->url($child->profile_image) }}"
                             alt="{{ $child->name }}のプロフィール画像"
                         >
+                        {{-- プロフィール画像がなければ名前の最初の一文字目をプロフィール画像の代わりに使用する --}}
                     @else
                         <span class="child-card__avatar child-card__avatar--default" aria-label="プロフィール画像未設定">
                             {{ mb_substr($child->name, 0, 1) }}
                         </span>
                     @endif
 
+                    {{-- お子様一覧情報 --}}
                     <span class="child-card__details">
                         <strong class="child-card__name">{{ $child->name }}</strong>
                         <span class="child-card__login-id">ログインID：{{ $child->login_id }}</span>

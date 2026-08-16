@@ -6,15 +6,18 @@
     <section class="auth-card">
         <div class="page-heading auth-heading">
             <p class="page-heading__eyebrow">CHILD LOGIN</p>
-            <h1>子どもログイン</h1>
+            <h1>お子様ログイン</h1>
             <p class="auth-heading__description">家族コードとログインIDを入力してください。</p>
         </div>
 
-        <form id="child-login-form" method="POST" action="{{ route('child.login.store') }}" data-child-login-form data-loading data-loading-message="ログインしています...">
+        {{-- ログイン処理 --}}
+        <form id="child-login-form" method="POST" action="{{ route('child.login.store') }}" data-child-login-form data-loading data-loading-message="ログインしています..." novalidate>
             @csrf
 
             <div class="form-group">
-                <label class="form-label" for="family_code">家族コード <span class="required-label">必須</span></label>
+                <label class="form-label" for="family_code">家族コード
+                    <span class="required-label">必須</span>
+                </label>
                 <input
                     class="form-control @error('family_code') is-invalid @enderror"
                     id="family_code"
@@ -22,7 +25,7 @@
                     type="text"
                     value="{{ old('family_code') }}"
                     minlength="8"
-                    maxlength="8"
+                    maxlength="15"
                     inputmode="numeric"
                     autocomplete="off"
                     pattern="[0-9]{8}"

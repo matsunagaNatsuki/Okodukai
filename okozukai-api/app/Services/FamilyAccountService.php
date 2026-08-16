@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class FamilyAccountService
 {
+    // 家族アカウントを新規作成
     public function create(User $parent, array $attributes, string $role): User
     {
         return User::create([
@@ -19,6 +20,7 @@ class FamilyAccountService
         ]);
     }
 
+    // 家族アカウントを編集
     public function update(User $account, array $attributes): void
     {
         $values = [

@@ -1,3 +1,5 @@
+{{-- 家族アカウントの追加、編集の入力フォーム--}}
+
 @php($editing = $editing ?? false)
 @php($account = $account ?? null)
 <div class="account-form-grid">

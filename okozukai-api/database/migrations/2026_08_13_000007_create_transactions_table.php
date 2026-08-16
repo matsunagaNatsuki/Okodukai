@@ -13,6 +13,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->enum('type', ['income', 'expense']);
             $table->enum('category', ['allowance', 'chore', 'expense', 'adjustment']);
+            /*  allowance = 定期おこづかい収入
+                chore = お手伝いで得た収入
+                expense = 支出
+                adjustment = 消すか？TODO */
             $table->unsignedInteger('amount');
             $table->string('title');
             $table->foreignId('created_by')->constrained('users')->restrictOnDelete();

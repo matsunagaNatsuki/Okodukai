@@ -11,17 +11,20 @@ use Illuminate\View\View;
 
 class ParentProfileController extends Controller
 {
+    // プロフィール画像をアップロードするService
     public function __construct(private readonly ProfileImageService $profileImageService) {}
 
     public function edit(Request $request): View
     {
         return view('parent.profile.edit', [
+            // 保護者の名前
             'parent' => $request->user(),
         ]);
     }
 
     public function update(UpdateParentProfileRequest $request): RedirectResponse
     {
+        // プロフィール名と画像をProfileImageServiceを使用して更新処理
         $this->profileImageService->update(
             $request->user(),
             $request->validated('name'),

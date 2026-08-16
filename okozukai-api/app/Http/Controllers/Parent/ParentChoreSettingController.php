@@ -15,6 +15,7 @@ class ParentChoreSettingController extends Controller
 {
     public function index(Request $request): View
     {
+        // お手伝いの内容と報酬設定のデータを取得
         $chores = Chore::query()
             ->where('family_id', $request->user()->family_id)
             ->orderBy('chore_name')
@@ -25,6 +26,7 @@ class ParentChoreSettingController extends Controller
         ]);
     }
 
+    // お手伝い報酬設定の新規作成
     public function store(ChoreSettingRequest $request): RedirectResponse
     {
         $request->user()->family->chores()->create([
@@ -37,8 +39,10 @@ class ParentChoreSettingController extends Controller
             ->with('success', 'お手伝い設定を登録しました。');
     }
 
+    // お手伝い報酬設定の編集処理
     public function update(ChoreSettingRequest $request, Chore $chore): JsonResponse
     {
+        // ログイン中の保護者が、お手伝い報酬設定を操作してもよいか
         Gate::authorize('manageFamilyChore', $chore);
 
         $chore->update($request->validated());
@@ -54,10 +58,13 @@ class ParentChoreSettingController extends Controller
         ]);
     }
 
+    // お手伝い設定の削除
     public function destroy(Chore $chore): JsonResponse
     {
+        // ログイン中の保護者が、お手伝い報酬設定を操作してもよいか
         Gate::authorize('manageFamilyChore', $chore);
 
+        // 削除処理
         $chore->delete();
 
         return response()->json([
