@@ -14,11 +14,30 @@ return new class extends Migration
         });
     }
 
+    // public function down(): void
+    // {
+    //     Schema::table('users', function (Blueprint $table) {
+    //         $table->dropUnique('users_family_login_id_unique');
+    //         $table->unique('login_id');
+    //     });
+    // }
+
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['family_id']);
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->dropUnique('users_family_login_id_unique');
             $table->unique('login_id');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('family_id')
+                ->references('id')
+                ->on('families')
+                ->nullOnDelete();
         });
     }
 };
