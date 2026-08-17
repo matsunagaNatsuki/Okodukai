@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+// パスワード再設定
 class PasswordResetCode extends Model
 {
     use HasFactory;
@@ -27,6 +28,7 @@ class PasswordResetCode extends Model
         ];
     }
 
+    // ユーザー情報
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

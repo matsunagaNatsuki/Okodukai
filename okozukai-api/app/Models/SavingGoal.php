@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+// 貯金目標
 class SavingGoal extends Model
 {
     use HasFactory;
@@ -25,6 +26,7 @@ class SavingGoal extends Model
         ];
     }
 
+    // ユーザー情報
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

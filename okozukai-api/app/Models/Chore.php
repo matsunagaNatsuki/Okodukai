@@ -25,16 +25,19 @@ class Chore extends Model
         return ['reward_amount' => 'integer'];
     }
 
+    // 家族情報
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
     }
 
+    // お手伝い報酬設定を行なったユーザー
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    // お手伝い実績
     public function choreRecords(): HasMany
     {
         return $this->hasMany(ChoreRecord::class);

@@ -14,6 +14,7 @@ class ParentMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
+        // 現在ログインしているユーザが存在していない場合
         if ($request->user() === null) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'ログインの有効期限が切れました。'], 401);
@@ -22,6 +23,7 @@ class ParentMiddleware
             return redirect()->guest(route('login'));
         }
 
+        // お子様ユーザがログインした場合お子様ホーム画面にリダイレクト
         if ($request->user()->role !== 'parent') {
             return redirect()->route('child.home');
         }

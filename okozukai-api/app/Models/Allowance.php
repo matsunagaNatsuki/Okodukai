@@ -27,6 +27,7 @@ class Allowance extends Model
         ];
     }
 
+    // ユーザー情報
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

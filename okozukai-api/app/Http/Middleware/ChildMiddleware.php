@@ -14,6 +14,7 @@ class ChildMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
+        // 現在ログイン中のユーザが存在していない場合
         if ($request->user() === null) {
             if ($request->routeIs('child.login', 'child.login.store')) {
                 return $next($request);
@@ -26,6 +27,7 @@ class ChildMiddleware
             return redirect()->guest(route('child.login'));
         }
 
+        // 保護者ユーザがログインした場合保護者画面のお子様一覧にリダイレクト
         if ($request->user()->role !== 'child') {
             return redirect()->route('parent.children.index');
         }

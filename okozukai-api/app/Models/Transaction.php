@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+// 収入・収支
 class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
@@ -30,16 +31,19 @@ class Transaction extends Model
         ];
     }
 
+    // ユーザー情報
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    // お手伝い実績登録
     public function choreRecord(): BelongsTo
     {
         return $this->belongsTo(ChoreRecord::class);
     }
 
+    // 収支報告したユーザ
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
