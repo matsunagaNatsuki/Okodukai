@@ -1007,6 +1007,14 @@ a {
     text-align: center;
 }
 
+.auth-link:nth-child(3) {
+    margin: 0;
+}
+
+.auth-link--no-margin {
+    margin: 0;
+}
+
 .auth-link a {
     color: var(--color-primary-dark);
     font-weight: 700;
