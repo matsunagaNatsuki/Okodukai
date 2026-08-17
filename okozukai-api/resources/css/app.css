@@ -61,6 +61,10 @@ a {
     color: inherit;
 }
 
+.child-data {
+    font-size: 40px;
+}
+
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -209,6 +213,12 @@ a {
     border-radius: var(--radius-large);
     background: var(--color-surface);
     box-shadow: var(--shadow-card);
+}
+
+.page-card--centered {
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 .auth-card {

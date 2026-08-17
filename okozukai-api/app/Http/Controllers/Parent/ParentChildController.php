@@ -30,8 +30,8 @@ class ParentChildController extends Controller
         Gate::authorize('viewFamilyChild', $child);
 
         return view('pages.placeholder', [
-            'title' => 'お子様管理',
-            'description' => "{$child->name}さんの管理画面をここに実装します。",
+            'description' => "{$child->name}さんの管理データ一覧です。",
+            'child' => $child
         ]);
     }
 }

@@ -1,13 +1,27 @@
 @extends('layouts.app')
 
-@section('title', $title . ' | おこづかい')
+@section('title', 'おこづかい')
 
 @section('content')
-    <section class="page-card">
-        <div class="page-heading">
-            <p class="page-heading__eyebrow">OKOZUKAI</p>
-            <h1>{{ $title }}</h1>
-        </div>
-        <p>{{ $description }}</p>
-    </section>
+<div class="page-heading">
+    <p class="page-heading__eyebrow">OKOZUKAI</p>
+    <h1>お子様管理</h1>
+    <p>{{ $description }}</p>
+</div>
+
+<section class="page-card page-card--centered">
+    <a class="child-data" href="{{ route('parent.pocket-money.show', $child) }}">
+        おこづかい入金
+    </a>
+</section>
+<section class="page-card page-card--centered">
+    <a class="child-data" href="{{ route('parent.chores.performance', $child) }}">
+        お手伝い実績登録
+    </a>
+</section>
+<section class="page-card page-card--centered">
+    <a class="child-data" href="{{ route('parent.chores.history', $child) }}">
+        お手伝い履歴
+    </a>
+</section>
 @endsection
