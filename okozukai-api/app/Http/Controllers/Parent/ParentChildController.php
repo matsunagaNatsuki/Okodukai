@@ -13,6 +13,9 @@ class ParentChildController extends Controller
     // お子様一覧
     public function index(Request $request): View
     {
+        // ログイン中の保護者ユーザを取得
+        $parent = $request->user();
+
         $children = User::query()
             ->where('family_id', $request->user()->family_id)
             ->where('role', 'child')
@@ -21,6 +24,7 @@ class ParentChildController extends Controller
 
         return view('parent.children.index', [
             'children' => $children,
+            'parent' => $parent,
         ]);
     }
 

@@ -1039,13 +1039,15 @@ a {
 
 .page-heading {
     margin-bottom: 24px;
+    justify-content: space-between;
 }
 
 .page-heading--with-action {
     display: flex;
     align-items: flex-end;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     gap: 20px;
+    margin-bottom: 53px;
 }
 
 .page-heading__description {
