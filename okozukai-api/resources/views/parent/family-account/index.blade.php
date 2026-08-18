@@ -13,7 +13,7 @@
 <section class="account-create-section">
     <details class="account-create-panel" @if ($errors->any()) open @endif>
         <summary>保護者を追加</summary>
-        <form method="POST" action="{{ route('parent.family-account.parents.store') }}" data-loading data-loading-message="追加しています...">
+        <form method="POST" action="{{ route('parent.family-account.parents.store') }}" data-loading data-loading-message="追加しています..." novalidate>
             @csrf
             {{-- 保護者追加用の入力フォームとして、HTML要素のIDに「new-parent」を付けた共通フォームを表示 --}}
             @include('parent.family-account.partials.account-form', ['type' => 'parent', 'prefix' => 'new-parent'])
@@ -23,7 +23,7 @@
 
     <details class="account-create-panel">
         <summary>子どもを追加</summary>
-        <form method="POST" action="{{ route('parent.family-account.children.store') }}" data-loading data-loading-message="追加しています...">
+        <form method="POST" action="{{ route('parent.family-account.children.store') }}" data-loading data-loading-message="追加しています..." novalidate>
             @csrf
             {{-- お子様追加用の入力フォームとして、HTML要素のIDに「new-child」を付けた共通フォームを表示 --}}
             @include('parent.family-account.partials.account-form', ['type' => 'child', 'prefix' => 'new-child'])
@@ -41,29 +41,26 @@
     @php($cannotDelete = auth()->id() === $account->id || $family->owner_user_id === $account->id)
     <article class="family-account-card" data-family-account-card="{{ $account->id }}">
         <div class="family-account-summary">
-            {{-- プロフィール画像を表示--}}
-            @if ($account->profile_image)
-            <img class="child-card__avatar" src="{{ str_starts_with($account->profile_image, 'http://') || str_starts_with($account->profile_image, 'https://') || str_starts_with($account->profile_image, '/') ? $account->profile_image : \Illuminate\Support\Facades\Storage::disk('public')->url($account->profile_image) }}" alt="{{ $account->name }}のプロフィール画像">
-            {{-- プロフィール画像が未設定の場合--}}
-            @else
-            <span class="child-card__avatar child-card__avatar--default" aria-label="プロフィール画像未設定">{{ mb_substr($account->name, 0, 1) }}</span>
-            @endif
+            <img class="child-card__avatar" src="{{ $account->profile_image ? asset('storage/'.$account->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $account->name }}のプロフィール画像">
             <div class="family-account-info">
                 <div class="family-account-name-row">
                     <h2>{{ $account->name }}</h2>
-                    <span class="role-badge role-badge--{{ $account->role }}">{{ $account->role === 'parent' ? '保護者' : '子ども' }}</span>
+                    <span class="role-badge role-badge--{{ $account->role }}">{{ $account->role === 'parent' ? '保護者' : 'お子様' }}</span>
                     @if ($family->owner_user_id === $account->id)<span class="owner-badge">家族代表</span>@endif
                     @if (auth()->id() === $account->id)<span class="self-badge">ログイン中</span>@endif
                 </div>
-                <p>メール：{{ $account->email ?: '—' }}</p>
-                <p>ログインID：{{ $account->login_id ?: '未設定' }}</p>
+                @if ($account->role === 'parent')
+                <p>メールアドレス：{{ $account->email }}</p>
+                @else
+                <p>ログインID：{{ $account->login_id }}</p>
+                @endif
             </div>
         </div>
 
         {{-- 家族アカウントの編集処理--}}
-        <details class="history-editor">
-            <summary>編集</summary>
-            <form method="POST" action="{{ route('parent.family-account.update', $account) }}" data-loading data-loading-message="更新しています...">
+        <details class="history-editor family-account-editor">
+            <summary>編集する</summary>
+            <form method="POST" action="{{ route('parent.family-account.update', $account) }}" data-loading data-loading-message="更新しています..." novalidate>
                 @csrf
                 @method('PUT')
                 {{-- 家族のアカウント情報を別のbladeで表示 --}}
@@ -75,13 +72,16 @@
         </details>
 
         {{-- ログイン中の本人または家族代表は削除不可 --}}
+        <div class="family-account-delete">
         @if ($cannotDelete)
-        <p class="protected-account-note">{{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}</p>
-
+        <p class="protected-account-note">
+            {{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}
+        </p>
         {{-- ログイン中の本人または家族代表でなければ削除可能--}}
         @else
-        <button class="button button--danger button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
+        <button class="button button--danger-subtle button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
         @endif
+        </div>
     </article>
     @endforeach
 </div>

@@ -13,8 +13,10 @@ class FamilyAccountService
         return User::create([
             'family_id' => $parent->family_id,
             'name' => $attributes['name'],
+            // 保護者ユーザはemail
             'email' => $role === 'parent' ? $attributes['email'] : null,
-            'login_id' => $attributes['login_id'],
+            // お子様ユーザはログインID
+            'login_id' => $role === 'child' ? $attributes['login_id'] : null,
             'password' => Hash::make($attributes['password']),
             'role' => $role,
         ]);
@@ -25,8 +27,10 @@ class FamilyAccountService
     {
         $values = [
             'name' => $attributes['name'],
+            // 保護者ユーザはemail
             'email' => $account->role === 'parent' ? $attributes['email'] : null,
-            'login_id' => $attributes['login_id'],
+            // お子様ユーザはログインID
+            'login_id' => $account->role === 'child' ? $attributes['login_id'] : null,
         ];
 
         if (filled($attributes['password'] ?? null)) {
