@@ -49,13 +49,13 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
-    certbot:
+  certbot:
       image: certbot/certbot
       container_name: okozukai-certbot
 
-    volumes:
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
+      volumes:
+        - ./certbot/www:/var/www/certbot
+        - ./certbot/conf:/etc/letsencrypt
 
 volumes:
   mysql_data:
