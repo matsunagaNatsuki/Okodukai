@@ -35,7 +35,7 @@ Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(funct
     Route::get('/child/{child}', [ParentChildController::class, 'show'])
         ->name('children.show');
 
-    // 定期おこづかい設定
+    // おこづかい入金
     Route::get('/pocket-money/{child}', [ParentPocketMoneyController::class, 'edit'])
         ->name('pocket-money.show');
     Route::put('/pocket-money/{child}', [ParentPocketMoneyController::class, 'update'])

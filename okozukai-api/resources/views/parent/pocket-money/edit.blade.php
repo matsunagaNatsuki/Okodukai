@@ -13,7 +13,7 @@
     </div>
 
     <section class="form-card">
-        <form method="POST" action="{{ route('parent.pocket-money.update', $child) }}" data-loading data-loading-message="保存しています...">
+        <form method="POST" action="{{ route('parent.pocket-money.update', $child) }}" data-loading data-loading-message="保存しています..." novalidate>
             @csrf
             @method('PUT')
 
