@@ -24,14 +24,4 @@
         お手伝い履歴
     </a>
 </section>
-<section class="page-card page-card--centered">
-    <a class="child-data" href="{{ route('child-payment.history', $child) }}">
-        支出履歴
-    </a>
-</section>
-<section class="page-card page-card--centered">
-    <a class="child-data" href="{{ route('savings.show', $child) }}">
-        貯金目標
-    </a>
-</section>
 @endsection
