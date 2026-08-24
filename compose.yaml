@@ -26,6 +26,7 @@ services:
     container_name: okozukai-db
     restart: unless-stopped
     environment:
+      TZ: Asia/Tokyo
       MYSQL_DATABASE: okozukai
       MYSQL_USER: okozukai
       MYSQL_PASSWORD: password

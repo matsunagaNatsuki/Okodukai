@@ -42,6 +42,7 @@ services:
     restart: unless-stopped
 
     environment:
+      TZ: Asia/Tokyo
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
