@@ -26,7 +26,14 @@ class ParentFamilyAccountController extends Controller
 
         // 家族に所属するアカウントを保護者、子どもの順に取得
         $accounts = $family->users()
-            ->orderByRaw("CASE WHEN role = 'parent' THEN 0 ELSE 1 END")
+            ->orderByRaw(
+                "CASE
+                    WHEN id = ? THEN 0
+                    WHEN role = 'parent' THEN 1
+                    ELSE 2
+                END",
+                [$family->owner_user_id]
+            )
             ->orderBy('name')
             ->get();
 
