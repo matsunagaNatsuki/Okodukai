@@ -25,10 +25,20 @@ class ParentChoreHistoryController extends Controller
 
         // お子様のお手伝い履歴を登録
         $records = $child->choreRecords()
-            ->with(['chore', 'transaction'])
+            ->with([
+                'chore' => fn ($query) => $query->withTrashed(),
+                'transaction',
+            ])
             ->orderByDesc('performed_at')
             ->orderByDesc('id')
             ->paginate(10);
+
+        // $records = ChoreRecord::
+        //     with(['chore', 'transaction'])
+        //     ->orderByDesc('performed_at')
+        //     ->orderByDesc('id')
+        //     ->withTrashed()
+        //     ->paginate(10);
 
         // 家族idに紐づいたお手伝い報酬設定
         $chores = Chore::query()
