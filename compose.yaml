@@ -48,5 +48,15 @@ services:
     depends_on:
       - db
 
+  postfix:
+    build:
+      context: ./okozukai-api
+      dockerfile: docker/postfix/Dockerfile
+    container_name: okozukai-postfix
+    restart: unless-stopped
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
 volumes:
   mysql_data:
