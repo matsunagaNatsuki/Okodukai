@@ -15,10 +15,10 @@
             @endauth
         @elseif ($navigationType === 'child')
             <a class="nav-link {{ request()->routeIs('child.home') ? 'is-active' : '' }}" href="{{ route('child.home') }}">ホーム</a>
-            <a class="nav-link {{ request()->routeIs('child.payment-record.*') ? 'is-active' : '' }}" href="{{ route('child.payment-record.create') }}">つかったもの</a>
-            <a class="nav-link {{ request()->routeIs('child.payment-history.*') ? 'is-active' : '' }}" href="{{ route('child.payment-history.index') }}">支出履歴</a>
-            <a class="nav-link {{ request()->routeIs('child.chores.*') ? 'is-active' : '' }}" href="{{ route('child.chores.history') }}">お手伝い</a>
-            <a class="nav-link {{ request()->routeIs('child.savings.*') ? 'is-active' : '' }}" href="{{ route('child.savings.show') }}">貯金目標</a>
+            <a class="nav-link {{ request()->routeIs('child.payment-record.*') ? 'is-active' : '' }}" href="{{ route('child.payment-record.create') }}">使ったお金を記録</a>
+            <a class="nav-link {{ request()->routeIs('child.payment-history.*') ? 'is-active' : '' }}" href="{{ route('child.payment-history.index') }}">最近使ったお金</a>
+            <a class="nav-link {{ request()->routeIs('child.chores.*') ? 'is-active' : '' }}" href="{{ route('child.chores.history') }}">お手伝いの記録</a>
+            <a class="nav-link {{ request()->routeIs('child.savings.*') ? 'is-active' : '' }}" href="{{ route('child.savings.show') }}">ためたいお金</a>
             <a class="nav-link {{ request()->routeIs('child.profile.*') ? 'is-active' : '' }}" href="{{ route('child.profile.edit') }}">プロフィール</a>
             @auth
                 @if (auth()->user()->role === 'child')
