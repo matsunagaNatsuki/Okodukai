@@ -1,7 +1,7 @@
 <nav class="global-navigation" id="global-navigation" aria-label="メインナビゲーション">
     <div class="navigation-inner">
         @if ($navigationType === 'parent')
-            <a class="nav-link {{ request()->routeIs('parent.children.*') ? 'is-active' : '' }}" href="{{ route('parent.children.index') }}">お子様</a>
+            <a class="nav-link {{ request()->routeIs('parent.children.*') ? 'is-active' : '' }}" href="{{ route('parent.children.index') }}">お子様一覧</a>
             <a class="nav-link {{ request()->routeIs('parent.family-account.*') ? 'is-active' : '' }}" href="{{ route('parent.family-account.index') }}">家族アカウント</a>
             <a class="nav-link {{ request()->routeIs('parent.chores-setting.*') ? 'is-active' : '' }}" href="{{ route('parent.chores-setting.index') }}">お手伝い設定</a>
             <a class="nav-link {{ request()->routeIs('parent.profile.*') ? 'is-active' : '' }}" href="{{ route('parent.profile.edit') }}">プロフィール</a>

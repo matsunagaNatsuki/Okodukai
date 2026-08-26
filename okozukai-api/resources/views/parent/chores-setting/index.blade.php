@@ -5,8 +5,8 @@
 @section('content')
 <div class="page-heading">
     <p class="page-heading__eyebrow">CHORE SETTINGS</p>
-    <h1>お手伝い報酬設定</h1>
-    <p class="page-heading__description">家族で使うお手伝いと報酬金額を設定します。</p>
+    <h1>お手伝いとお金の設定</h1>
+    <p class="page-heading__description">お子様が行うお手伝いの内容とおこづかいの金額を設定します。</p>
 </div>
 
 <div class="settings-layout">
@@ -15,7 +15,7 @@
         <form method="POST" action="{{ route('parent.chores-setting.store') }}" data-loading data-loading-message="登録しています..." novalidate>
             @csrf
             <div class="form-group">
-                <label class="form-label" for="chore_name">お手伝い名 <span class="required-label">必須</span></label>
+                <label class="form-label" for="chore_name">お手伝いの内容 <span class="required-label">必須</span></label>
                 <input class="form-control
                         @error('chore_name') is-invalid
                         @enderror" id="chore_name" name="chore_name" type="text" value="{{ old('chore_name') }}" maxlength="100" required>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="reward_amount">報酬金額 <span class="required-label">必須</span></label>
+                <label class="form-label" for="reward_amount">おこづかい金額 <span class="required-label">必須</span></label>
                 <div class="amount-field">
                     <input class="form-control @error('reward_amount') is-invalid @enderror" id="reward_amount" name="reward_amount" type="number" value="{{ old('reward_amount') }}" min="1" step="1" inputmode="numeric" required>
                     <span>円</span>
@@ -77,11 +77,11 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label class="form-label" for="chore-name-{{ $chore->id }}">お手伝い名</label>
+                        <label class="form-label" for="chore-name-{{ $chore->id }}">お手伝いの内容</label>
                         <input class="form-control" id="chore-name-{{ $chore->id }}" name="chore_name" type="text" value="{{ $chore->chore_name }}" maxlength="100" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="chore-reward-{{ $chore->id }}">報酬金額</label>
+                        <label class="form-label" for="chore-reward-{{ $chore->id }}">おこづかい金額</label>
                         <div class="amount-field">
                             <input class="form-control" id="chore-reward-{{ $chore->id }}" name="reward_amount" type="number" value="{{ $chore->reward_amount }}" min="1" step="1" inputmode="numeric" required>
                             <span>円</span>

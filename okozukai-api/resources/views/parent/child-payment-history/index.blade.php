@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', '子どもの支出履歴 | おこづかい')
+@section('title', 'お子様が使用したお金 | おこづかい')
 
 @section('content')
     <div class="page-heading page-heading--with-action">
         <div>
             <p class="page-heading__eyebrow">PAYMENT HISTORY</p>
-            <h1>支出履歴</h1>
-            <p class="page-heading__description">{{ $child->name }}さんが使ったおこづかいの履歴です。</p>
+            <h1>お子様が使ったお金</h1>
+            <p class="page-heading__description">{{ $child->name }}さんが使用したおこづかいの履歴です。</p>
         </div>
         <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
     </div>
@@ -20,8 +20,8 @@
     @if ($transactions->isEmpty())
         <section class="empty-state">
             <span class="empty-state__icon" aria-hidden="true">🧾</span>
-            <h2>まだ支出履歴がありません</h2>
-            <p>おこづかいを使うと、ここに履歴が表示されます。</p>
+            <h2>まだお子様が使用したお金がありません</h2>
+            <p>お子様がおこづかいを使用すると、ここに履歴が表示されます。</p>
         </section>
     @else
         <div class="history-list">

@@ -6,7 +6,7 @@
     <div class="page-heading page-heading--with-action">
         <div>
             <p class="page-heading__eyebrow">MONTHLY ALLOWANCE</p>
-            <h1>定期おこづかい設定</h1>
+            <h1>おこづかい入金</h1>
             <p class="page-heading__description">{{ $child->name }}さんの毎月のおこづかいを設定します。</p>
         </div>
         <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
@@ -18,7 +18,7 @@
             @method('PUT')
 
             <div class="form-group">
-                <label class="form-label" for="amount">毎月のおこづかい金額 <span class="required-label">必須</span></label>
+                <label class="form-label" for="amount">おこづかい金額 <span class="required-label">必須</span></label>
                 <div class="amount-field">
                     <input
                         class="form-control @error('amount') is-invalid @enderror"

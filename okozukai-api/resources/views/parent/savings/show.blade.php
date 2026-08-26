@@ -6,7 +6,7 @@
     <div class="page-heading page-heading--with-action">
         <div>
             <p class="page-heading__eyebrow">SAVING GOAL</p>
-            <h1>貯金目標</h1>
+            <h1>貯金の目標</h1>
             <p class="page-heading__description">{{ $child->name }}さんが設定した目標を確認できます。</p>
         </div>
         <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
@@ -15,8 +15,8 @@
     @if ($savingGoal === null)
         <section class="empty-state">
             <span class="empty-state__icon" aria-hidden="true">🎯</span>
-            <h2>貯金目標はまだ設定されていません</h2>
-            <p>{{ $child->name }}さんが目標を設定すると、ここに表示されます。</p>
+            <h2>お子様の貯金の目標はまだ設定されていません</h2>
+            <p>{{ $child->name }}さんが貯金の目標を設定すると、ここに表示されます。</p>
         </section>
     @else
         <section class="saving-goal-card">
