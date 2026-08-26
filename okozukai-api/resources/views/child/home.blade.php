@@ -15,7 +15,7 @@
         </div>
     </section>
 
-    <nav class="child-menu-grid" aria-label="子ども用メニュー">
+    {{--<nav class="child-menu-grid" aria-label="子ども用メニュー">
         <a href="{{ route('child.payment-record.create') }}"><span aria-hidden="true">✏️</span><strong>つかったものを記録</strong></a>
         <a href="{{ route('child.payment-history.index') }}"><span aria-hidden="true">🧾</span><strong>支出履歴</strong></a>
         <a href="{{ route('child.chores.history') }}"><span aria-hidden="true">🧹</span><strong>お手伝い履歴</strong></a>
@@ -25,7 +25,7 @@
             @csrf
             <button type="submit"><span aria-hidden="true">🚪</span><strong>ログアウト</strong></button>
         </form>
-    </nav>
+    </nav>--}}
 
     <div class="child-home-columns">
         <section class="home-panel">

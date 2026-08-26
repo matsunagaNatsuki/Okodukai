@@ -655,8 +655,8 @@ a {
     padding: clamp(22px, 5vw, 36px);
     border-radius: var(--radius-large);
     color: #704707;
-    background: linear-gradient(125deg, #fff0a3, #fff8dc);
-    box-shadow: var(--shadow-card);
+    /* background: linear-gradient(125deg, #fff0a3, #fff8dc); */
+    /* box-shadow: var(--shadow-card); */
 }
 
 .child-home-avatar {
