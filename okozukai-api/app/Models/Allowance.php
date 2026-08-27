@@ -15,7 +15,7 @@ class Allowance extends Model
         'user_id',
         'amount',
         'payment_day',
-        'is_active',
+        // 'is_active',
     ];
 
     protected function casts(): array
@@ -23,7 +23,7 @@ class Allowance extends Model
         return [
             'amount' => 'integer',
             'payment_day' => 'integer',
-            'is_active' => 'boolean',
+            // 'is_active' => 'boolean',
         ];
     }
 
