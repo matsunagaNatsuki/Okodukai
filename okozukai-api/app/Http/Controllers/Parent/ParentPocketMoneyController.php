@@ -34,12 +34,14 @@ class ParentPocketMoneyController extends Controller
         // バリデーションに成功した入力データを取得
         $validated = $request->validated();
 
-        DB::transaction(function () use ($child, $validated): void {
-            // $allowance = Allowance::query()
-            //     ->where('user_id', $child->id)
-            //     ->latest('id')
-            //     ->lockForUpdate()
-            //     ->first();
+        DB::transaction(function () use (
+            $request, $child, $validated
+        ): void {
+            $allowance = Allowance::query()
+                ->where('user_id', $child->id)
+                ->latest('id')
+                ->lockForUpdate()
+                ->first();
 
             // バリデーション済みの値を、新しい配列にまとめる
             $attributes = [
@@ -47,6 +49,21 @@ class ParentPocketMoneyController extends Controller
                 'payment_day' => $validated['payment_day'],
                 // 'is_active' => $validated['is_active'],
             ];
+
+            if ($allowance === null) {
+                $child->allowances()->create($attributes);
+            } else {
+                $allowance->update($attributes);
+            }
+
+            $child->transactions()->create([
+                'type' => 'income',
+                'category' => 'allowance',
+                'amount' => $validated['amount'],
+                'transaction_date' => now()->toDateString(),
+                'title' => 'おこづかい入金',
+                'created_by' => $request->user()->id,
+            ]);
 
             // allowancesテーブルに新しいレコードを作成
             Allowance::create([
