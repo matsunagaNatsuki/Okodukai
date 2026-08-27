@@ -52,7 +52,7 @@
                 @enderror
             </div>
 
-            <fieldset class="form-group status-fieldset">
+            {{--<fieldset class="form-group status-fieldset">
                 <legend class="form-label">設定状態 <span class="required-label">必須</span></legend>
                 @php($activeValue = (string) old('is_active', $allowance?->is_active ?? true))
                 <div class="status-options">
@@ -68,7 +68,7 @@
                 @error('is_active')
                     <p class="field-error">{{ $message }}</p>
                 @enderror
-            </fieldset>
+            </fieldset>--}}
 
             <button class="button button--primary button--block" type="submit">
                 {{ $allowance ? '設定を更新する' : '設定を登録する' }}

@@ -45,7 +45,7 @@ class ParentPocketMoneyController extends Controller
             $attributes = [
                 'amount' => $validated['amount'],
                 'payment_day' => $validated['payment_day'],
-                'is_active' => $validated['is_active'],
+                // 'is_active' => $validated['is_active'],
             ];
 
             // 定期おこづかい設定の新規作成

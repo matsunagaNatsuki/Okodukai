@@ -19,7 +19,7 @@ class UpsertAllowanceRequest extends FormRequest
         return [
             'amount' => ['required', 'integer', 'min:1'],
             'payment_day' => ['required', 'integer', 'between:1,31'],
-            'is_active' => ['required', 'boolean'],
+            // 'is_active' => ['required', 'boolean'],
         ];
     }
 
@@ -31,7 +31,7 @@ class UpsertAllowanceRequest extends FormRequest
         return [
             'amount' => '毎月のおこづかい金額',
             'payment_day' => '支給日',
-            'is_active' => '有効状態',
+            // 'is_active' => '有効状態',
         ];
     }
 
@@ -45,7 +45,7 @@ class UpsertAllowanceRequest extends FormRequest
             'integer' => ':attributeは整数で入力してください。',
             'amount.min' => '毎月のおこづかい金額は1円以上で入力してください。',
             'payment_day.between' => '支給日は1日から31日の間で選択してください。',
-            'is_active.boolean' => '有効状態を正しく選択してください。',
+            // 'is_active.boolean' => '有効状態を正しく選択してください。',
         ];
     }
 }
