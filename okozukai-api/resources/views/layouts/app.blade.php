@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,16 @@
     @stack('styles')
 </head>
 @php
-    $navigationType = $navigationType ?? (request()->routeIs('parent.*') ? 'parent' : (request()->routeIs('child.*') ? 'child' : 'guest'));
-    $showNavigation = $showNavigation ?? ! request()->routeIs('login', 'register', 'password.*', 'child.login');
+$navigationType = $navigationType ?? (request()->routeIs('parent.*') ? 'parent' : (request()->routeIs('child.*') ? 'child' : 'guest'));
+$showNavigation = $showNavigation ?? ! request()->routeIs('login', 'register', 'password.*', 'child.login', 'parent.register.verify');
 @endphp
+
 <body class="app-body app-body--{{ $navigationType }}">
     <div class="app-shell">
         @include('layouts.partials.header', ['navigationType' => $navigationType])
 
         @if ($showNavigation)
-            @include('layouts.partials.navigation', ['navigationType' => $navigationType])
+        @include('layouts.partials.navigation', ['navigationType' => $navigationType])
         @endif
 
         <main class="app-main" id="main-content">
@@ -36,7 +38,9 @@
 
     @stack('scripts')
 </body>
+
 </html>
-    </main>
+</main>
 </body>
+
 </html>

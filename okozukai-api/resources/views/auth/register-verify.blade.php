@@ -1,19 +1,51 @@
-<h1>確認コードを入力してください</h1>
+<!-- @extends('layouts.app') -->
 
-<p>{{ $email }} に4桁の確認コードを送信しました。</p>
+@section('title', '確認コード入力 | おこづかい')
 
-<form method="POST" action="{{ route('parent.register.verify.store', ['token' => $token]) }}" novalidate>
-    @csrf
-
-    <div>
-        <label for="code">確認コード</label>
-
-        <input id="code" type="text" name="code" value="{{ old('code') }}" maxlength="4" inputmode="numeric" autocomplete="one-time-code" required autofocus>
-
-        @error('code')
-        <div>{{ $message }}</div>
-        @enderror
+@section('content')
+<section class="auth-card">
+    <div class="page-heading auth-heading">
+        <p class="page-heading__eyebrow">PARENT SIGN UP</p>
+        <h1>確認コードを入力してください</h1>
+        <p class="auth-heading__description">
+            {{ $email }} に確認コードを送信しました。
+        </p>
     </div>
 
-    <button type="submit">確認する</button>
-</form>
+    <form method="POST" action="{{ route('parent.register.verify.store', ['token' => $token]) }}" data-loading data-loading-message="確認しています..." novalidate>
+        @csrf
+
+        <div class="form-group">
+            <label class="form-label" for="code">
+                確認コード
+                <span class="required-label">必須</span>
+            </label>
+
+            <input
+                class="form-control @error('code') is-invalid @enderror"
+                id="code"
+                name="code"
+                type="text"
+                value="{{ old('code') }}"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                required
+                autofocus>
+
+            @error('code')
+            <p class="field-error">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <button class="button button--primary button--block" type="submit">
+            確認して登録する
+        </button>
+    </form>
+
+    <p class="auth-link">
+        <a href="{{ route('parent.register') }}">
+            新規登録画面へ戻る
+        </a>
+    </p>
+</section>
+@endsection
