@@ -7,7 +7,7 @@
         <div>
             <p class="page-heading__eyebrow">CHILD PROFILE</p>
             <h1>プロフィール</h1>
-            <p class="page-heading__description">名前とプロフィール画像を変更できます。</p>
+            <p class="page-heading__description">お名前とプロフィールの画像を変更できます。</p>
         </div>
         <a class="button button--secondary" href="{{ route('child.home') }}">ホームへ戻る</a>
     </div>
@@ -26,12 +26,12 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('child.profile.update') }}" enctype="multipart/form-data" data-loading data-loading-message="更新しています..." novalidate>
+        <form method="POST" action="{{ route('child.profile.update') }}" enctype="multipart/form-data" data-loading data-loading-message="新しく変更しています..." novalidate>
             @csrf
             @method('PUT')
 
             <div class="form-group">
-                <label class="form-label" for="name">名前 <span class="required-label">必須</span></label>
+                <label class="form-label" for="name">お名前 <span class="required-label">必ず入力してね</span></label>
                 <input class="form-control @error('name') is-invalid @enderror" id="name" name="name" type="text" value="{{ old('name', $child->name) }}" maxlength="100" autocomplete="name" required>
                 @error('name')<p class="field-error">{{ $message }}</p>@enderror
             </div>
@@ -43,7 +43,7 @@
                 @error('profile_image')<p class="field-error">{{ $message }}</p>@enderror
             </div>
 
-            <button class="button button--primary button--block" type="submit">プロフィールを更新する</button>
+            <button class="button button--primary button--block" type="submit">プロフィールを変更する</button>
         </form>
     </section>
 @endsection

@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'お手伝い履歴 | おこづかい')
+@section('title', 'お手伝いの実績 | おこづかい')
 
 @section('content')
     <div class="page-heading page-heading--with-action">
         <div>
             <p class="page-heading__eyebrow">CHORE HISTORY</p>
-            <h1>お手伝い履歴</h1>
-            <p class="page-heading__description">{{ $child->name }}さんのお手伝い実績です。</p>
+            <h1>お手伝いの実績</h1>
+            <p class="page-heading__description">{{ $child->name }}さんのお手伝いの実績です。</p>
         </div>
-        <a class="button button--primary" href="{{ route('parent.chores.performance', $child) }}">実績を登録</a>
+        <a class="button button--primary" href="{{ route('parent.chores.performance', $child) }}">お手伝い実績を記録</a>
     </div>
 
     @if ($records->isEmpty())
         <section class="empty-state">
             <span class="empty-state__icon" aria-hidden="true">🧹</span>
-            <h2>まだお手伝い履歴がありません</h2>
-            <p>お手伝いをしたら実績を登録してください。</p>
+            <h2>まだお手伝いの実績がありません</h2>
+            <p>お手伝いをしたら実績を記録してください。</p>
         </section>
     @else
         <div class="history-list">
@@ -35,7 +35,7 @@
                             @method('PUT')
                             <div class="history-edit-grid">
                                 <div class="form-group">
-                                    <label class="form-label" for="chore-{{ $record->id }}">お手伝い内容</label>
+                                    <label class="form-label" for="chore-{{ $record->id }}">お手伝いの内容</label>
                                     <select class="form-control" id="chore-{{ $record->id }}" name="chore_id" data-chore-select required>
                                         @foreach ($chores as $chore)
                                             <option value="{{ $chore->id }}" data-reward-amount="{{ $chore->reward_amount }}" @selected($record->chore_id === $chore->id)>{{ $chore->chore_name }}</option>
@@ -43,7 +43,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="reward-{{ $record->id }}">報酬金額</label>
+                                    <label class="form-label" for="reward-{{ $record->id }}">金額</label>
                                     <div class="amount-field">
                                         <input class="form-control" id="reward-{{ $record->id }}" name="reward_amount" type="number" value="{{ $record->reward_amount }}" min="1" step="1" data-chore-reward required>
                                         <span>円</span>
@@ -59,7 +59,7 @@
                             </div>
                         </form>
 
-                        <form method="POST" action="{{ route('parent.chores.history.destroy', [$child, $record]) }}" data-loading data-loading-message="削除しています..." data-confirm-submit="このお手伝い実績と対応する収入を削除しますか？">
+                        <form method="POST" action="{{ route('parent.chores.history.destroy', [$child, $record]) }}" data-loading data-loading-message="削除しています..." data-confirm-submit="このお手伝いの実績と対応する金額を削除しますか？">
                             @csrf
                             @method('DELETE')
                             <button class="button button--danger button--small" type="submit">削除する</button>

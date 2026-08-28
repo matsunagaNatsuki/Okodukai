@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'お手伝い履歴 | おこづかい')
+@section('title', 'お手伝いの記録 | おこづかい')
 
 @section('content')
     <div class="page-heading">
         <p class="page-heading__eyebrow">CHORE HISTORY</p>
-        <h1>お手伝い履歴</h1>
+        <h1>お手伝いの記録</h1>
         <p class="page-heading__description">これまでにがんばったお手伝いを確認できます。</p>
     </div>
 
     @if ($records->isEmpty())
         <section class="empty-state">
             <span class="empty-state__icon" aria-hidden="true">🧹</span>
-            <h2>まだお手伝い履歴がありません</h2>
-            <p>お手伝いをすると、ここに履歴が表示されます。</p>
+            <h2>まだ行なったお手伝いがありません</h2>
+            <p>お手伝いをすると、ここにこれまでがんばったお手伝いの記録が表示されます。</p>
         </section>
     @else
         <div class="history-list">

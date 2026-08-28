@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', '支出履歴 | おこづかい')
+@section('title', '最近使ったお金 | おこづかい')
 
 @section('content')
     <div class="page-heading page-heading--with-action">
         <div>
             <p class="page-heading__eyebrow">PAYMENT HISTORY</p>
-            <h1>支出履歴</h1>
-            <p class="page-heading__description">これまでに使ったおこづかいを確認できます。</p>
+            <h1>最近使ったお金</h1>
+            <p class="page-heading__description">これまでに使ったおこづかいを見ることができます。</p>
         </div>
-        <a class="button button--primary" href="{{ route('child.payment-record.create') }}">つかったものを記録</a>
+        <a class="button button--primary" href="{{ route('child.payment-record.create') }}">使ったものを記録</a>
     </div>
 
     <section class="balance-card" aria-label="現在残高">

@@ -6,7 +6,7 @@
     <div class="page-heading page-heading--with-action">
         <div>
             <p class="page-heading__eyebrow">MONTHLY ALLOWANCE</p>
-            <h1>定期おこづかい設定</h1>
+            <h1>おこづかい入金</h1>
             <p class="page-heading__description">{{ $child->name }}さんの毎月のおこづかいを設定します。</p>
         </div>
         <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
@@ -18,7 +18,7 @@
             @method('PUT')
 
             <div class="form-group">
-                <label class="form-label" for="amount">毎月のおこづかい金額 <span class="required-label">必須</span></label>
+                <label class="form-label" for="amount">おこづかい金額 <span class="required-label">必須</span></label>
                 <div class="amount-field">
                     <input
                         class="form-control @error('amount') is-invalid @enderror"
@@ -52,7 +52,7 @@
                 @enderror
             </div>
 
-            <fieldset class="form-group status-fieldset">
+            {{--<fieldset class="form-group status-fieldset">
                 <legend class="form-label">設定状態 <span class="required-label">必須</span></legend>
                 @php($activeValue = (string) old('is_active', $allowance?->is_active ?? true))
                 <div class="status-options">
@@ -68,7 +68,7 @@
                 @error('is_active')
                     <p class="field-error">{{ $message }}</p>
                 @enderror
-            </fieldset>
+            </fieldset>--}}
 
             <button class="button button--primary button--block" type="submit">
                 {{ $allowance ? '設定を更新する' : '設定を登録する' }}

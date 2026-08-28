@@ -5,7 +5,7 @@
 @section('content')
     <div class="page-heading">
         <p class="page-heading__eyebrow">PARENT PROFILE</p>
-        <h1>プロフィール</h1>
+        <h1>プロフィール設定</h1>
         <p class="page-heading__description">名前とプロフィール画像を変更できます。</p>
     </div>
 

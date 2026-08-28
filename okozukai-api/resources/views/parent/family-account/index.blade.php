@@ -5,7 +5,7 @@
 @section('content')
 <div class="page-heading">
     <p class="page-heading__eyebrow">FAMILY ACCOUNTS</p>
-    <h1>家族アカウント管理</h1>
+    <h1>家族アカウント</h1>
     <p class="page-heading__description">家族コード：<strong>{{ $family->family_code }}</strong></p>
 </div>
 

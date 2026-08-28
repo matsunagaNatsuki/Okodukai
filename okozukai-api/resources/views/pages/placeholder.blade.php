@@ -5,7 +5,7 @@
 @section('content')
 <div class="page-heading">
     <p class="page-heading__eyebrow">OKOZUKAI</p>
-    <h1>お子様管理</h1>
+    <h1>お子様管理一覧</h1>
     <p>{{ $description }}</p>
 </div>
 
@@ -16,22 +16,22 @@
 </section>
 <section class="page-card page-card--centered">
     <a class="child-data" href="{{ route('parent.chores.performance', $child) }}">
-        お手伝い実績登録
+        お手伝いの記録
     </a>
 </section>
 <section class="page-card page-card--centered">
     <a class="child-data" href="{{ route('parent.chores.history', $child) }}">
-        お手伝い履歴
+        お手伝いの実績
     </a>
 </section>
 <section class="page-card page-card--centered">
     <a class="child-data" href="{{ route('parent.child-payment.history', $child) }}">
-        支出履歴
+        使用したお金
     </a>
 </section>
 <section class="page-card page-card--centered">
     <a class="child-data" href="{{ route('parent.savings.show', $child) }}">
-        貯金目標
+        貯金の目標
     </a>
 </section>
 @endsection
