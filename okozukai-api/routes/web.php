@@ -18,6 +18,30 @@ use App\Http\Controllers\Parent\ParentProfileController;
 use App\Http\Controllers\Parent\ParentSavingController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ParentRegistrationController;
+use App\Http\Controllers\Auth\ParentRegistrationVerificationController;
+
+// 保護者新規登録の２要素認証
+Route::middleware('guest')->group(function () {
+    Route::get('/parent/register', function () {
+        return view('auth.parent-register');
+    })->name('parent.register');
+
+    Route::post(
+        '/parent/register',
+        [ParentRegistrationController::class, 'store']
+    )->name('parent.register.store');
+
+    Route::get(
+        '/parent/register/verify/{token}',
+        [ParentRegistrationVerificationController::class, 'create']
+    )->name('parent.register.verify');
+
+    Route::post(
+        '/parent/register/verify/{token}',
+        [ParentRegistrationVerificationController::class, 'store']
+    )->name('parent.register.verify.store');
+});
 
 Route::redirect('/', '/parent/login');
 

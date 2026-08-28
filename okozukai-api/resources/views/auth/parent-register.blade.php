@@ -10,7 +10,7 @@
             <p class="auth-heading__description">最初の保護者を登録して、家族のおこづかい管理を始めましょう。</p>
         </div>
 
-        <form method="POST" action="{{ route('register.store') }}" data-loading data-loading-message="登録しています...">
+        <form method="POST" action="{{ route('parent.register.store') }}" data-loading data-loading-message="登録しています..." novalidate>
             @csrf
 
             <div class="form-group">

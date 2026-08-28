@@ -61,7 +61,7 @@
     </form>
 
     <p class="auth-link"><a href="{{ route('password.request') }}">パスワードを忘れた方はこちら</a></p>
-    <p class="auth-link">初めて利用する方は <a href="{{ route('register') }}">保護者新規登録</a></p>
+    <p class="auth-link">初めて利用する方は <a href="{{ route('parent.register') }}">保護者新規登録</a></p>
     <p class="auth-link auth-link--no-margin">お子様ユーザーの方は <a href="{{ route('child.login') }}">お子様ログイン</a></p>
 </section>
 @endsection
