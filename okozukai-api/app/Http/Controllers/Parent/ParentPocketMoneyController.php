@@ -46,7 +46,7 @@ class ParentPocketMoneyController extends Controller
             // バリデーション済みの値を、新しい配列にまとめる
             $attributes = [
                 'amount' => $validated['amount'],
-                'payment_day' => $validated['payment_day'],
+                // 'payment_day' => $validated['payment_day'],
                 // 'is_active' => $validated['is_active'],
             ];
 
@@ -69,7 +69,7 @@ class ParentPocketMoneyController extends Controller
             Allowance::create([
                 'user_id' => $child->id,
                 'amount' => $attributes['amount'],
-                'payment_day' => $attributes['payment_day'],
+                // 'payment_day' => $attributes['payment_day'],
             ]);
 
             // 定期おこづかい設定の新規作成
