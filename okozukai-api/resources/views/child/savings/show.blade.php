@@ -6,10 +6,9 @@
 <div class="page-heading page-heading--with-action">
     <div>
         <p class="page-heading__eyebrow">SAVING GOAL</p>
-        <h1>ためたいお金</h1>
+        <h1><i class="fa-solid fa-sack-dollar"></i>ためたいお金</h1>
         <p class="page-heading__description">欲しいものを決めて、楽しくお金をためよう！</p>
     </div>
-    <a class="button button--secondary" href="{{ route('child.home') }}">ホームへ戻る</a>
 </div>
 
 @if ($savingGoal !== null)
@@ -39,14 +38,16 @@
 </section>
 @else
 <section class="empty-state">
-    <span class="empty-state__icon" aria-hidden="true">🎯</span>
+    <span class="empty-state__icon" aria-hidden="true"></span>
     <h2>お金の目標はまだありません</h2>
     <p>欲しいものと目標のお金を登録してみよう。</p>
 </section>
 @endif
 
 <section class="form-card">
-    <h2>{{ $savingGoal === null ? 'お金の目標を立てる' : 'お金の目標を変える' }}</h2>
+    <h2><i class="fa-solid fa-piggy-bank"></i>
+        {{ $savingGoal === null ? 'お金の目標を立てる' : 'お金の目標を変える' }}
+    </h2>
     <form method="POST" action="{{ route('child.savings.store') }}" data-loading data-loading-message="保存してるよ..." novalidate>
         @csrf
         <div class="form-group">

@@ -11,11 +11,12 @@
     </div>
     <div class="child-balance">
         <span>現在のおこづかい</span>
-        <strong>{{ number_format($currentBalance) }}円</strong>
+        <strong>￥{{ number_format($currentBalance) }}円</strong>
     </div>
 </section>
 
-{{--<nav class="child-menu-grid" aria-label="子ども用メニュー">
+{{--
+<nav class="child-menu-grid" aria-label="子ども用メニュー">
         <a href="{{ route('child.payment-record.create') }}"><span aria-hidden="true">✏️</span><strong>つかったものを記録</strong></a>
 <a href="{{ route('child.payment-history.index') }}"><span aria-hidden="true">🧾</span><strong>支出履歴</strong></a>
 <a href="{{ route('child.chores.history') }}"><span aria-hidden="true">🧹</span><strong>お手伝い履歴</strong></a>
@@ -25,18 +26,19 @@
     @csrf
     <button type="submit"><span aria-hidden="true">🚪</span><strong>ログアウト</strong></button>
 </form>
-</nav>--}}
+</nav>
+--}}
 
 <div class="child-home-columns">
     <section class="home-panel">
         <div class="home-panel__heading">
-            <h2>お金をためよう！</h2>
+            <h2><i class="fa-solid fa-piggy-bank"></i>お金をためよう！</h2>
             <a href="{{ route('child.savings.show') }}">くわしく見る</a>
         </div>
         @if ($savingGoal)
         <h3 class="home-goal-name">{{ $savingGoal->item_name }}</h3>
         <div class="saving-stat-grid saving-stat-grid--home">
-            <div class="saving-stat"><span>ためたいお金</span><strong>{{ number_format($savingGoal->target_amount) }}円</strong></div>
+            <div class="saving-stat"><span>ためたいお金</span><strong>￥{{ number_format($savingGoal->target_amount) }}円</strong></div>
             <div class="saving-stat"><span>あといくら？</span><strong>{{ number_format($remainingAmount) }}円</strong></div>
             <div class="saving-stat"><span>ゴールまで</span><strong>{{ number_format($achievementRate, 1) }}%</strong></div>
         </div>
@@ -53,7 +55,7 @@
 
     <section class="home-panel">
         <div class="home-panel__heading">
-            <h2>おこづかいの記録</h2><a href="{{ route('child.payment-history.index') }}">最近使ったお金を見る</a>
+            <h2><i class="fa-solid fa-receipt"></i>おこづかいの記録</h2><a href="{{ route('child.payment-history.index') }}">最近使ったお金を見る</a>
         </div>
         @if ($recentTransactions->isEmpty())
         <div class="home-empty">

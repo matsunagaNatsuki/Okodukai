@@ -1,5 +1,9 @@
 import $ from 'jquery';
 import { ajaxError, configureAjax, handleAuthenticationError } from './modules/ajax';
+// import './bootstrap';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 window.$ = window.jQuery = $;
 

@@ -6,15 +6,14 @@
 <div class="page-heading page-heading--with-action">
     <div>
         <p class="page-heading__eyebrow">PAYMENT RECORD</p>
-        <h1>使ったお金を記録</h1>
+        <h1><i class="fa-solid fa-cash-register"></i>使ったお金を記録</h1>
         <p class="page-heading__description">何にいくら使ったか記録しよう。</p>
     </div>
-    <a class="button button--secondary" href="{{ route('child.home') }}">ホームへ戻る</a>
 </div>
 
 <section class="balance-card" aria-label="現在残高">
     <span class="balance-card__label">現在のおこづかい</span>
-    <strong class="balance-card__amount">{{ number_format($currentBalance) }}円</strong>
+    <strong class="balance-card__amount">¥{{ number_format($currentBalance) }}円</strong>
 </section>
 
 <section class="form-card">
@@ -56,11 +55,11 @@
                 <span class="required-label">必ず入力してね</span>
             </label>
             <input class="form-control @error('used_at') is-invalid @enderror" id="used_at" name="used_at" type="date" value="{{ old('used_at', now()->toDateString()) }}" required>
-            @error('used_at')
-            <p class="field-error">
-                {{ $message }}
-            </p>
-            @enderror
+        @error('used_at')
+        <p class="field-error">
+            {{ $message }}
+        </p>
+        @enderror
         </div>
         --}}
 

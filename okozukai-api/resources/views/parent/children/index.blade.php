@@ -13,10 +13,12 @@
 <div class="page-heading page-heading--with-action">
     <div>
         <p class="page-heading__eyebrow">CHILDREN</p>
-        <h1>お子様一覧</h1>
+        <h1><i class="fa-solid fa-children"></i>お子様一覧</h1>
         <p class="page-heading__description">管理するお子様を選んでください。</p>
     </div>
-    <a class="button button--primary" href="{{ route('parent.family-account.index') }}">家族アカウント</a>
+    <a class="button button--primary" href="{{ route('parent.family-account.index') }}">
+        <i class="fa-solid fa-people-roof"></i>家族アカウント
+    </a>
 </div>
 
 @if ($children->isEmpty())
@@ -24,7 +26,10 @@
     <span class="empty-state__icon" aria-hidden="true">👪</span>
     <h2>お子様はまだ登録されていません</h2>
     <p>家族アカウントからお子様を追加してください</p>
-    <a class="button button--primary" href="{{ route('parent.family-account.index') }}">家族アカウントへ</a>
+    <a class="button button--primary" href="{{ route('parent.family-account.index') }}">
+        <i class="fa-solid fa-people-roof"></i>
+        家族アカウントへ
+    </a>
 </section>
 @else
 <div class="child-grid">

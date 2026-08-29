@@ -5,14 +5,14 @@
 @section('content')
 <div class="page-heading">
     <p class="page-heading__eyebrow">FAMILY ACCOUNTS</p>
-    <h1>家族アカウント</h1>
+    <h1><i class="fa-solid fa-people-roof"></i>家族アカウント</h1>
     <p class="page-heading__description">家族コード：<strong>{{ $family->family_code }}</strong></p>
 </div>
 
 {{-- 家族アカウントの追加処理 --}}
 <section class="account-create-section">
     <details class="account-create-panel" @if ($errors->any()) open @endif>
-        <summary>保護者を追加</summary>
+        <summary><i class="fa-solid fa-person"></i>保護者を追加</summary>
         <form method="POST" action="{{ route('parent.family-account.parents.store') }}" data-loading data-loading-message="追加しています..." novalidate>
             @csrf
             {{-- 保護者追加用の入力フォームとして、HTML要素のIDに「new-parent」を付けた共通フォームを表示 --}}
@@ -22,7 +22,7 @@
     </details>
 
     <details class="account-create-panel">
-        <summary>子どもを追加</summary>
+        <summary><i class="fa-solid fa-child-dress"></i>子どもを追加</summary>
         <form method="POST" action="{{ route('parent.family-account.children.store') }}" data-loading data-loading-message="追加しています..." novalidate>
             @csrf
             {{-- お子様追加用の入力フォームとして、HTML要素のIDに「new-child」を付けた共通フォームを表示 --}}
@@ -73,14 +73,14 @@
 
         {{-- ログイン中の本人または家族代表は削除不可 --}}
         <div class="family-account-delete">
-        @if ($cannotDelete)
-        <p class="protected-account-note">
-            {{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}
-        </p>
-        {{-- ログイン中の本人または家族代表でなければ削除可能--}}
-        @else
-        <button class="button button--danger-subtle button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
-        @endif
+            @if ($cannotDelete)
+            <p class="protected-account-note">
+                {{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}
+            </p>
+            {{-- ログイン中の本人または家族代表でなければ削除可能--}}
+            @else
+            <button class="button button--danger-subtle button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
+            @endif
         </div>
     </article>
     @endforeach

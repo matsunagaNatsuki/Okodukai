@@ -5,7 +5,7 @@
 @section('content')
 <div class="page-heading">
     <p class="page-heading__eyebrow">CHORE SETTINGS</p>
-    <h1>お手伝いとお金の設定</h1>
+    <h1><i class="fa-solid fa-broom"></i>お手伝い設定</h1>
     <p class="page-heading__description">お子様が行うお手伝いの内容とおこづかいの金額を設定します。</p>
 </div>
 

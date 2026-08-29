@@ -64,6 +64,8 @@ a {
 .child-data {
     font-size: 36px;
     margin-top: 10px;
+    text-decoration: none;
+    color: black;
 }
 
 .visually-hidden {
@@ -150,7 +152,7 @@ a {
     scrollbar-width: thin;
 }
 
-.nav-link {
+.nav-links {
     min-width: max-content;
     display: flex;
     align-items: center;
@@ -176,9 +178,9 @@ a {
     cursor: pointer;
 }
 
-.nav-link:hover,
-.nav-link:focus-visible,
-.nav-link.is-active {
+.nav-links:hover,
+.nav-links:focus-visible,
+.nav-links.is-active {
     color: var(--color-primary-dark);
     background: #fff9e8;
     border-bottom-color: var(--color-primary);
@@ -221,6 +223,7 @@ a {
     display: flex;
     justify-content: center;
     text-align: center;
+    text-decoration: none;
 }
 
 .auth-card {
@@ -1235,11 +1238,13 @@ p {
 .button--primary {
     color: #fff;
     background: linear-gradient(120deg, var(--color-primary-dark), var(--color-primary));
+    text-decoration: none;
 }
 
 .button--secondary {
     color: var(--color-text);
     background: #f4eee3;
+    text-decoration: none;
 }
 
 .alert,
@@ -1409,7 +1414,7 @@ p {
         padding: 8px 12px 12px;
     }
 
-    .nav-link {
+    .nav-links {
         min-height: 48px;
         padding: 8px 14px;
         border-bottom: 0;
@@ -1417,7 +1422,7 @@ p {
         border-radius: 10px;
     }
 
-    .nav-link.is-active {
+    .nav-links.is-active {
         border-left-color: var(--color-primary);
     }
 
