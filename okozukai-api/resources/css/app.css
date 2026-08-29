@@ -1247,7 +1247,7 @@ p {
     text-decoration: none;
 }
 
-.alert,
+.app-alert,
 .validation-errors {
     position: relative;
     margin-bottom: 20px;
