@@ -46,8 +46,14 @@
                 <div class="family-account-name-row">
                     <h2>{{ $account->name }}</h2>
                     <span class="role-badge role-badge--{{ $account->role }}">{{ $account->role === 'parent' ? '保護者' : 'お子様' }}</span>
-                    @if ($family->owner_user_id === $account->id)<span class="owner-badge">家族代表</span>@endif
-                    @if (auth()->id() === $account->id)<span class="self-badge">ログイン中</span>@endif
+                    @if ($family->owner_user_id === $account->id)
+                    <span class="owner-badge">家族代表</span>
+                    @endif
+                    @if (auth()->id() === $account->id)
+                    <span class="self-badge">
+                        ログイン中
+                    </span>
+                    @endif
                 </div>
                 @if ($account->role === 'parent')
                 <p>メールアドレス：{{ $account->email }}</p>
