@@ -41,13 +41,15 @@
                 <input class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" type="number" value="{{ old('amount') }}" min="1" max="{{ max($currentBalance, 0) }}" step="1" inputmode="numeric" required>
                 <span>円</span>
             </div>
-            <p class="form-help">現在のおこづかい以内の金額を入力してください。</p>
+            <p class="form-help">※現在のおこづかい以内の金額を入力してください。</p>
             @error('amount')
             <p class="field-error">
                 {{ $message }}
             </p>
             @enderror
         </div>
+
+        {{--
         <div class="form-group">
             <label class="form-label" for="used_at">
                 使用日
@@ -60,6 +62,8 @@
             </p>
             @enderror
         </div>
+        --}}
+
         <button class="button button--primary button--block" type="submit" @disabled($currentBalance < 1)>記録する</button>
         {{-- 現在残高が0の時は記録しない--}}
         @if ($currentBalance < 1)
