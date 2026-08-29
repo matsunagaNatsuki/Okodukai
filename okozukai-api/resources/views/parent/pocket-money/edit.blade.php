@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label class="form-label" for="payment_day">支給日 <span class="required-label">必須</span></label>
                 <select class="form-control @error('payment_day') is-invalid @enderror" id="payment_day" name="payment_day" required>
-                    <option value="">選択してください</option>
+                    {{--<option value="">選択してください</option>--}}
                     @for ($day = 1; $day <= 31; $day++)
                         <option value="{{ $day }}" @selected((string) old('payment_day', $allowance?->payment_day) === (string) $day)>{{ $day }}日</option>
                     @endfor
