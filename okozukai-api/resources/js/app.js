@@ -108,7 +108,7 @@ $document.on('click', '.nav-toggle', function () {
 });
 
 $document.on('click', '.alert-close', function () {
-    $(this).closest('.alert').fadeOut(180, function () {
+    $(this).closest('.app-alert').fadeOut(180, function () {
         $(this).remove();
     });
 });
