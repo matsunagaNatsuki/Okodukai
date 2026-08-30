@@ -7,7 +7,8 @@
     <div>
         <p class="page-heading__eyebrow">MONTHLY ALLOWANCE</p>
         <h1><i class="fa-solid fa-wallet"></i>おこづかい入金</h1>
-        <p class="page-heading__description">{{ $child->name }}さんに支給するおこづかいを設定します。</p>
+        <p class="page-heading__description">
+            <span class="child-name">{{ $child->name }}</span>さんに支給するおこづかいを設定します。</p>
     </div>
     <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
 </div>
