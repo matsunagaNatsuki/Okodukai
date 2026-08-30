@@ -7,9 +7,12 @@
     <div>
         <p class="page-heading__eyebrow">CHORE HISTORY</p>
         <h1><i class="fa-solid fa-broom"></i>お手伝いの実績</h1>
-        <p class="page-heading__description">
-            <span class="child-name">{{ $child->name }}</span>さんのお手伝いの実績です。
-        </p>
+        <div class="page-profile">
+            <img class="child-card__avatar" src="{{ $child->profile_image ? asset('storage/'.$child->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $child->name }}のプロフィール画像">
+            <p class="page-heading__description">
+                <span class="child-name">{{ $child->name }}</span>さんのお手伝いの実績です。
+            </p>
+        </div>
     </div>
     <a class="button button--primary" href="{{ route('parent.chores.performance', $child) }}">
         <i class="fa-solid fa-file-pen"></i>
