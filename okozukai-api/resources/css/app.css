@@ -69,8 +69,20 @@ a {
 }
 
 .child-name {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
+}
+
+.page-profile {
+    display: flex;
+    margin-top: 22px;
+
+}
+
+.page-profile p {
+    margin-left: 15px;
+    padding-top: 3px;
+
 }
 
 .visually-hidden {
@@ -222,6 +234,10 @@ a {
     border-radius: var(--radius-large);
     background: var(--color-surface);
     box-shadow: var(--shadow-card);
+}
+
+.page-card:first-of-type {
+    margin-top: 15px;
 }
 
 .page-card--centered {
@@ -1081,7 +1097,7 @@ a {
 }
 
 .page-heading {
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
     justify-content: space-between;
 }
 
@@ -1127,8 +1143,8 @@ a {
 }
 
 .child-card__avatar {
-    width: 68px;
-    height: 68px;
+    width: 60px;
+    height: 65px;
     flex: 0 0 68px;
     border: 3px solid var(--color-primary-soft);
     border-radius: 50%;

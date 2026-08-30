@@ -6,10 +6,13 @@
 <div class="page-heading">
     <p class="page-heading__eyebrow">OKOZUKAI</p>
     <h1><i class="fa-solid fa-child-reaching"></i>お子様管理一覧</h1>
-    {{--<p>{{ $description }}</p>--}}
-    <p>
-        <span class="child-name">{{ $child->name }}</span>さんのお子様管理データです
-    </p>
+    <div class="page-profile">
+        <img class="child-card__avatar" src="{{ $child->profile_image ? asset('storage/'.$child->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $child->name }}のプロフィール画像">
+        <p>
+            <span class="child-name">{{ $child->name }}</span>さんのお子様管理データです
+        </p>
+        {{--<p>{{ $description }}</p>--}}
+    </div>
 </div>
 
 <section class="page-card page-card--centered">
