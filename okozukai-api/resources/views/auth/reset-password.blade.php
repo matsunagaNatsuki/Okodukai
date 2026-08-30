@@ -10,7 +10,7 @@
             <p class="auth-heading__description">新しく使用するパスワードを入力してください。</p>
         </div>
 
-        <form method="POST" action="{{ route('password.update') }}" data-loading data-loading-message="更新しています...">
+        <form method="POST" action="{{ route('password.update') }}" data-loading data-loading-message="更新しています..." novalidate>
             @csrf
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
