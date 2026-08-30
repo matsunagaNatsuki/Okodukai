@@ -23,7 +23,7 @@ class ChoreRecordService
                 'chore_id' => $chore->id,
                 'registered_by' => $parent->id,
                 'reward_amount' => $attributes['reward_amount'],
-                'performed_at' => $attributes['performed_at'],
+                // 'performed_at' => $attributes['performed_at'],
             ]);
 
             // お手伝いに対する収入の登録

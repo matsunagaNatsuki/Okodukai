@@ -14,9 +14,10 @@ return new class extends Migration
             $table->foreignId('chore_id')->constrained()->restrictOnDelete();
             $table->foreignId('registered_by')->constrained('users')->restrictOnDelete();
             $table->unsignedInteger('reward_amount');
-            $table->date('performed_at');
+            // $table->date('performed_at');
             $table->timestamps();
-            $table->index(['user_id', 'performed_at']);
+            $table->index(['user_id']);
+            // $table->index(['user_id', 'performed_at']);
         });
     }
 

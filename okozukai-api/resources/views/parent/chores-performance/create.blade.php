@@ -21,7 +21,7 @@
 </section>
 @else
 <section class="form-card">
-    <form method="POST" action="{{ route('parent.chores.performance.store', $child) }}" data-loading data-loading-message="記録しています...">
+    <form method="POST" action="{{ route('parent.chores.performance.store', $child) }}" data-loading data-loading-message="記録しています..." novalidate>
         @csrf
 
         <div class="form-group">
@@ -51,13 +51,13 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        {{--<div class="form-group">
             <label class="form-label" for="performed_at">実施日 <span class="required-label">必須</span></label>
             <input class="form-control @error('performed_at') is-invalid @enderror" id="performed_at" name="performed_at" type="date" value="{{ old('performed_at', now()->toDateString()) }}" required>
             @error('performed_at')
             <p class="field-error">{{ $message }}</p>
             @enderror
-        </div>
+        </div>--}}
 
         <button class="button button--primary button--block" type="submit">お手伝いを記録する</button>
     </form>

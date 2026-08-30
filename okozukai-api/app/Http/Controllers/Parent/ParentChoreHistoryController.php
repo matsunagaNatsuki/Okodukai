@@ -29,7 +29,7 @@ class ParentChoreHistoryController extends Controller
                 'chore' => fn ($query) => $query->withTrashed(),
                 'transaction',
             ])
-            ->orderByDesc('performed_at')
+            // ->orderByDesc('performed_at')
             ->orderByDesc('id')
             ->paginate(10);
 
