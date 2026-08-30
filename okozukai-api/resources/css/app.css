@@ -68,6 +68,11 @@ a {
     color: black;
 }
 
+.child-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .visually-hidden {
     position: absolute;
     width: 1px;

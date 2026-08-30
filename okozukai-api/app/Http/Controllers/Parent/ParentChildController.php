@@ -34,7 +34,7 @@ class ParentChildController extends Controller
         Gate::authorize('viewFamilyChild', $child);
 
         return view('pages.placeholder', [
-            'description' => "{$child->name}さんのお子様管理データです",
+            // 'description' => "{$child->name}さんのお子様管理データです",
             'child' => $child
         ]);
     }
