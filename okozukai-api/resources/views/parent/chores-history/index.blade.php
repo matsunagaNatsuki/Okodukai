@@ -7,11 +7,13 @@
     <div>
         <p class="page-heading__eyebrow">CHORE HISTORY</p>
         <h1><i class="fa-solid fa-broom"></i>お手伝いの実績</h1>
-        <p class="page-heading__description">{{ $child->name }}さんのお手伝いの実績です。</p>
+        <p class="page-heading__description">
+            <span class="child-name">{{ $child->name }}</span>さんのお手伝いの実績です。
+        </p>
     </div>
     <a class="button button--primary" href="{{ route('parent.chores.performance', $child) }}">
         <i class="fa-solid fa-file-pen"></i>
-            お手伝い実績を記録
+        お手伝い実績を記録
     </a>
 </div>
 
@@ -54,22 +56,22 @@
                     </div>
                     {{--<div class="form-group">
                         <label class="form-label" for="date-{{ $record->id }}">実施日</label>
-                        <input class="form-control" id="date-{{ $record->id }}" name="performed_at" type="date" value="{{ $record->performed_at->toDateString() }}" required>
-                    </div>--}}
-                </div>
-                <div class="card-actions">
-                    <button class="button button--primary button--small" type="submit">更新する</button>
-                </div>
-            </form>
+                    <input class="form-control" id="date-{{ $record->id }}" name="performed_at" type="date" value="{{ $record->performed_at->toDateString() }}" required>
+                </div>--}}
+</div>
+<div class="card-actions">
+    <button class="button button--primary button--small" type="submit">更新する</button>
+</div>
+</form>
 
-            <form method="POST" action="{{ route('parent.chores.history.destroy', [$child, $record]) }}" data-loading data-loading-message="削除しています..." data-confirm-submit="このお手伝いの実績と対応する金額を削除しますか？">
-                @csrf
-                @method('DELETE')
-                <button class="button button--danger button--small" type="submit">削除する</button>
-            </form>
-        </details>
-    </article>
-    @endforeach
+<form method="POST" action="{{ route('parent.chores.history.destroy', [$child, $record]) }}" data-loading data-loading-message="削除しています..." data-confirm-submit="このお手伝いの実績と対応する金額を削除しますか？">
+    @csrf
+    @method('DELETE')
+    <button class="button button--danger button--small" type="submit">削除する</button>
+</form>
+</details>
+</article>
+@endforeach
 </div>
 
 <div class="pagination-wrapper">
