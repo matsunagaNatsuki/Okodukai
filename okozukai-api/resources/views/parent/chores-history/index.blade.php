@@ -52,10 +52,10 @@
                             <span>円</span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="form-label" for="date-{{ $record->id }}">実施日</label>
                         <input class="form-control" id="date-{{ $record->id }}" name="performed_at" type="date" value="{{ $record->performed_at->toDateString() }}" required>
-                    </div>
+                    </div>--}}
                 </div>
                 <div class="card-actions">
                     <button class="button button--primary button--small" type="submit">更新する</button>

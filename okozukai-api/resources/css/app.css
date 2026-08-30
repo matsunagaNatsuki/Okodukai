@@ -895,12 +895,13 @@ a {
 }
 
 .history-editor form {
-    margin-top: 18px;
+    margin: 18px 20px;
 }
 
 .history-edit-grid {
     display: grid;
-    grid-template-columns: minmax(180px, 1fr) minmax(140px, .6fr) minmax(160px, .7fr);
+    /* grid-template-columns: minmax(180px, 1fr) minmax(140px, .6fr) minmax(160px, .7fr); */
+    grid-template-columns: minmax(180px, 1fr) minmax(140px, .6fr);
     gap: 14px;
 }
 
