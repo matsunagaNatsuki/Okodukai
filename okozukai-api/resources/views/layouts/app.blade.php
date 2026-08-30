@@ -11,7 +11,7 @@
 </head>
 @php
 $navigationType = $navigationType ?? (request()->routeIs('parent.*') ? 'parent' : (request()->routeIs('child.*') ? 'child' : 'guest'));
-$showNavigation = $showNavigation ?? ! request()->routeIs('login', 'register', 'password.*', 'child.login', 'parent.register.verify');
+$showNavigation = $showNavigation ?? ! request()->routeIs('login', 'register', 'password.*', 'child.login', 'parent.register', 'parent.register.verify');
 @endphp
 
 <body class="app-body app-body--{{ $navigationType }}">
