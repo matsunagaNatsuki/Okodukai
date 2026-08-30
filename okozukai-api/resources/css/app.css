@@ -1258,11 +1258,11 @@ p {
     line-height: 1.6;
 }
 
-.alert--success { color: #146740; border-color: #8ed1ae; background: #edfff5; }
-.alert--error,
+.app-alert--success { color: #146740; border-color: #8ed1ae; background: #edfff5; }
+.app-alert--error,
 .validation-errors { color: #9d302a; border-color: #eda8a2; background: #fff1f0; }
-.alert--warning { color: #805000; border-color: #e8c16f; background: #fff8df; }
-.alert--info { color: #315b86; border-color: #9fc4e9; background: #f0f7ff; }
+.app-alert--warning { color: #805000; border-color: #e8c16f; background: #fff8df; }
+.app-alert--info { color: #315b86; border-color: #9fc4e9; background: #f0f7ff; }
 
 .alert-close {
     position: absolute;
@@ -1296,7 +1296,7 @@ p {
     background: #f8ebc9;
 }
 
-.modal,
+.app-modal,
 .loading-overlay {
     position: fixed;
     inset: 0;
@@ -1307,18 +1307,18 @@ p {
     padding: 20px;
 }
 
-.modal.is-visible,
+.app-modal.is-visible,
 .loading-overlay.is-visible {
     display: flex;
 }
 
-.modal-backdrop {
+.app-modal-backdrop {
     position: absolute;
     inset: 0;
     background: rgb(48 34 15 / 55%);
 }
 
-.modal-panel {
+.app-modal-panel {
     position: relative;
     z-index: 1;
     width: min(100%, 480px);
@@ -1330,12 +1330,12 @@ p {
     box-shadow: 0 24px 70px rgb(40 25 3 / 30%);
 }
 
-.modal-title {
+.app-modal-title {
     margin: 0 40px 16px 0;
     color: #734a0b;
 }
 
-.modal-close {
+.app-modal-close {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -1348,7 +1348,7 @@ p {
     cursor: pointer;
 }
 
-.modal-actions {
+.app-modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
@@ -1536,11 +1536,11 @@ p {
         flex: 1;
     }
 
-    .modal-actions {
+    .app-modal-actions {
         flex-direction: column-reverse;
     }
 
-    .modal-actions .button {
+    .app-modal-actions .button {
         width: 100%;
     }
 }

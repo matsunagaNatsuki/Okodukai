@@ -33,8 +33,8 @@ function openDeleteModal($trigger) {
 
     $modal.data('delete-url', $trigger.data('delete-url'));
     $modal.data('delete-target', $trigger.closest($trigger.data('delete-target')));
-    $modal.find('.modal-title').text($trigger.data('delete-title') || '削除の確認');
-    $modal.find('.modal-body').text($trigger.data('delete-message') || 'このデータを削除しますか？');
+    $modal.find('.app-modal-title').text($trigger.data('delete-title') || '削除の確認');
+    $modal.find('.app-modal-body').text($trigger.data('delete-message') || 'このデータを削除しますか？');
     $modal.find('[data-modal-confirm]').text('削除する').addClass('button--danger');
     $modal.attr('aria-hidden', 'false').addClass('is-visible');
     $('body').addClass('is-modal-open');
@@ -49,8 +49,8 @@ function showAjaxMessage(message, type = 'success') {
     }
 
     $message
-        .removeClass('alert--success alert--error')
-        .addClass(`alert alert--${type}`)
+        .removeClass('app-alert--success app-alert--error')
+        .addClass(`app-alert app-alert--${type}`)
         .text(message)
         .show();
 }
@@ -150,8 +150,8 @@ $document.on('click', '[data-modal-open]', function () {
     const $trigger = $(this);
     const $modal = $('#common-modal');
 
-    $modal.find('.modal-title').text($trigger.data('modal-title') || '確認');
-    $modal.find('.modal-body').text($trigger.data('modal-message') || '操作を続けますか？');
+    $modal.find('.app-modal-title').text($trigger.data('modal-title') || '確認');
+    $modal.find('.app-modal-body').text($trigger.data('modal-message') || '操作を続けますか？');
     $modal.find('[data-modal-confirm]').text($trigger.data('modal-confirm-label') || '続ける');
     $modal.attr('aria-hidden', 'false').addClass('is-visible');
     $('body').addClass('is-modal-open');
