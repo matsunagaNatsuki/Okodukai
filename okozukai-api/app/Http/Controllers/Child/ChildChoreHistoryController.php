@@ -16,7 +16,7 @@ class ChildChoreHistoryController extends Controller
             ->with([
                 'chore' => fn ($query) => $query->withTrashed(),
             ])
-            ->orderByDesc('performed_at')
+            // ->orderByDesc('performed_at')
             ->orderByDesc('id')
             ->paginate(10);
 

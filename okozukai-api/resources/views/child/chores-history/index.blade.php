@@ -20,7 +20,8 @@
     @foreach ($records as $record)
     <article class="history-card">
         <div class="history-card__summary">
-            <time datetime="{{ $record->performed_at->toDateString() }}">{{ $record->performed_at->format('Y年n月j日') }}</time>
+            {{--<time datetime="{{ $record->performed_at->toDateString() }}">{{ $record->performed_at->format('Y年n月j日') }}</time>--}}
+            <time datetime="{{ $record->created_at->toDateString() }}">{{ $record->created_at->format('Y年n月j日') }}</time>
             <strong>{{ $record->chore?->chore_name ?? '削除済みのお手伝い' }}</strong>
             <span class="history-card__amount">+{{ number_format($record->reward_amount) }}円</span>
         </div>
