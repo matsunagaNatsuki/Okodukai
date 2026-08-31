@@ -7,7 +7,13 @@
     <div>
         <p class="page-heading__eyebrow">CHORE PERFORMANCE</p>
         <h1><i class="fa-solid fa-file-pen"></i>お手伝いの記録</h1>
-        <p class="page-heading__description">{{ $child->name }}さんのお手伝いを記録します。</p>
+        <div class="page-profile">
+            <img class="child-card__avatar" src="{{ $child->profile_image ? asset('storage/'.$child->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $child->name }}のプロフィール画像">
+            <p class="page-heading__description">
+                <span class="child-name">{{ $child->name }}</span>さんのお手伝いの実績です。
+            </p>
+        </div>
+
     </div>
     <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
 </div>
@@ -54,9 +60,9 @@
         {{--<div class="form-group">
             <label class="form-label" for="performed_at">実施日 <span class="required-label">必須</span></label>
             <input class="form-control @error('performed_at') is-invalid @enderror" id="performed_at" name="performed_at" type="date" value="{{ old('performed_at', now()->toDateString()) }}" required>
-            @error('performed_at')
-            <p class="field-error">{{ $message }}</p>
-            @enderror
+        @error('performed_at')
+        <p class="field-error">{{ $message }}</p>
+        @enderror
         </div>--}}
 
         <button class="button button--primary button--block" type="submit">お手伝いを記録する</button>
