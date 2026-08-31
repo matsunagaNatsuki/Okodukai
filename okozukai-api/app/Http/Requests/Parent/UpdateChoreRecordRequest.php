@@ -30,7 +30,7 @@ class UpdateChoreRecordRequest extends FormRequest
                 ),
             ],
             'reward_amount' => ['required', 'integer', 'min:1'],
-            'performed_at' => ['required', 'date'],
+            // 'performed_at' => ['required', 'date'],
         ];
     }
 
@@ -39,7 +39,7 @@ class UpdateChoreRecordRequest extends FormRequest
         return [
             'chore_id' => 'お手伝い内容',
             'reward_amount' => '報酬金額',
-            'performed_at' => '実施日',
+            // 'performed_at' => '実施日',
         ];
     }
 
@@ -50,7 +50,7 @@ class UpdateChoreRecordRequest extends FormRequest
             'chore_id.exists' => '選択したお手伝い設定を確認してください。',
             'reward_amount.integer' => '報酬金額は整数で入力してください。',
             'reward_amount.min' => '報酬金額は1円以上で入力してください。',
-            'performed_at.date' => '実施日を正しい日付で入力してください。',
+            // 'performed_at.date' => '実施日を正しい日付で入力してください。',
         ];
     }
 }
