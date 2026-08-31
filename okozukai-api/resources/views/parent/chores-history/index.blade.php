@@ -38,7 +38,7 @@
 
         <details class="history-editor">
             <summary>編集・削除</summary>
-            <form method="POST" action="{{ route('parent.chores.history.update', [$child, $record]) }}" data-loading data-loading-message="更新しています...">
+            <form id="form-chore-update" method="POST" action="{{ route('parent.chores.history.update', [$child, $record]) }}" data-loading data-loading-message="更新しています...">
                 @csrf
                 @method('PUT')
                 <div class="history-edit-grid">
@@ -59,21 +59,20 @@
                     </div>
                     {{--<div class="form-group">
                         <label class="form-label" for="date-{{ $record->id }}">実施日</label>
-                    <input class="form-control" id="date-{{ $record->id }}" name="performed_at" type="date" value="{{ $record->performed_at->toDateString() }}" required>
-                </div>--}}
-</div>
-<div class="card-actions">
-    <button class="button button--primary button--small" type="submit">更新する</button>
-</div>
-</form>
+                    <input class="form-control" id="date-{{ $record->id }}" name="performed_at" type="date" value="{{ $record->performed_at->toDateString() }}" required></div>--}}
+                </div>
+            </form>
 
-<form method="POST" action="{{ route('parent.chores.history.destroy', [$child, $record]) }}" data-loading data-loading-message="削除しています..." data-confirm-submit="このお手伝いの実績と対応する金額を削除しますか？">
-    @csrf
-    @method('DELETE')
-    <button class="button button--danger button--small" type="submit">削除する</button>
-</form>
-</details>
-</article>
+            <div class="card-actions">
+                <button class="button button--primary button--small" type="submit" form="form-chore-update">更新する</button>
+                <button class="button button--danger button--small" type="submit" form="form-chore-delete">削除する</button>
+            </div>
+            <form method="POST" id="form-chore-delete" action="{{ route('parent.chores.history.destroy', [$child, $record]) }}" data-loading data-loading-message="削除しています..." data-confirm-submit="このお手伝いの実績と対応する金額を削除しますか？">
+                @csrf
+                @method('DELETE')
+            </form>
+        </details>
+    </article>
 @endforeach
 </div>
 
