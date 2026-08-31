@@ -73,21 +73,18 @@
                 @include('parent.family-account.partials.account-form', ['type' => $account->role, 'prefix' => 'account-'.$account->id, 'account' => $account, 'editing' => true])
                 <div class="card-actions">
                     <button class="button button--primary button--small" type="submit">更新する</button>
+                    {{-- ログイン中の本人または家族代表は削除不可 --}}
+                    @if ($cannotDelete)
+                    <p class="protected-account-note">
+                        {{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}
+                    </p>
+                    {{-- ログイン中の本人または家族代表でなければ削除可能--}}
+                    @else
+                    <button class="button button--danger-subtle button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
+                    @endif
                 </div>
             </form>
         </details>
-
-        {{-- ログイン中の本人または家族代表は削除不可 --}}
-        <div class="family-account-delete">
-            @if ($cannotDelete)
-            <p class="protected-account-note">
-                {{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}
-            </p>
-            {{-- ログイン中の本人または家族代表でなければ削除可能--}}
-            @else
-            <button class="button button--danger-subtle button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
-            @endif
-        </div>
     </article>
     @endforeach
 </div>
