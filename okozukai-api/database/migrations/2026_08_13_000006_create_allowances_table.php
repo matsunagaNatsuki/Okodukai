@@ -16,7 +16,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['user_id']);
+            $table->index('user_id');
             $table->index(['user_id', 'is_active']);
 
         });

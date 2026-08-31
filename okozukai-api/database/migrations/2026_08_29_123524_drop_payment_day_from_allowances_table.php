@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('allowances', function (Blueprint $table) {
-            Schema::table('allowances', function (Blueprint $table) {
-                $table->dropColumn('payment_day');
-                $table->dropColumn('is_active');
-            });
+            $table->dropColumn('payment_day');
+            $table->dropColumn('is_active');
         });
     }
 
