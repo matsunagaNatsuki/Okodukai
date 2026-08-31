@@ -48,10 +48,19 @@ function showAjaxMessage(message, type = 'success') {
         return;
     }
 
+    const $text = $('<span>').text(message);
+    const $closeButton = $('<button>', {
+        class: 'alert-close',
+        type: 'button',
+        'aria-label': 'メッセージを閉じる',
+    }).text('×');
+
     $message
         .removeClass('app-alert--success app-alert--error')
         .addClass(`app-alert app-alert--${type}`)
-        .text(message)
+        .attr('role', type === 'error' ? 'alert' : 'status')
+        .empty()
+        .append($text, $closeButton)
         .show();
 }
 
@@ -108,8 +117,19 @@ $document.on('click', '.nav-toggle', function () {
 });
 
 $document.on('click', '.alert-close', function () {
-    $(this).closest('.app-alert').fadeOut(180, function () {
-        $(this).remove();
+    const $alert = $(this).closest('.app-alert');
+
+    $alert.fadeOut(180, function () {
+        if ($alert.is('[data-ajax-message]')) {
+            $alert
+                .empty()
+                .removeClass('app-alert app-alert--success app-alert--error')
+                .removeAttr('role');
+
+            return;
+        }
+
+        $alert.remove();
     });
 });
 
