@@ -61,13 +61,6 @@ a {
     color: inherit;
 }
 
-.child-data {
-    font-size: 36px;
-    margin-top: 10px;
-    text-decoration: none;
-    color: black;
-}
-
 .child-name {
     font-size: 30px;
     font-weight: bold;
@@ -237,6 +230,15 @@ a {
     box-shadow: var(--shadow-card);
 }
 
+.page-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+}
+
+.page-card:active {
+    transform: translateY(2px);
+}
+
 .page-card:first-of-type {
     margin-top: 15px;
 }
@@ -247,6 +249,10 @@ a {
     text-align: center;
     text-decoration: none;
 }
+
+/* .fa-solid {
+    padding-top: 10px;
+} */
 
 .auth-card {
     width: min(100%, 600px);
@@ -1193,6 +1199,13 @@ a {
     margin-left: auto;
     color: var(--color-primary-dark);
     font-size: 2rem;
+}
+
+.child-data {
+    font-size: 36px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
 }
 
 .empty-state {
