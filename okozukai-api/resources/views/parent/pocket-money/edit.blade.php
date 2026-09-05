@@ -7,8 +7,13 @@
     <div>
         <p class="page-heading__eyebrow">MONTHLY ALLOWANCE</p>
         <h1><i class="fa-solid fa-wallet"></i>おこづかい入金</h1>
-        <p class="page-heading__description">
-            <span class="child-name">{{ $child->name }}</span>さんに支給するおこづかいを設定します。</p>
+        <div class="page-profile">
+            <img class="child-card__avatar" src="{{ $child->profile_image ? asset('storage/'.$child->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $child->name }}のプロフィール画像">
+            <p class="page-heading__description">
+                <span class="child-name">{{ $child->name }}</span>さんに支給するおこづかいを設定します。
+            </p>
+        </div>
+
     </div>
     <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
 </div>
