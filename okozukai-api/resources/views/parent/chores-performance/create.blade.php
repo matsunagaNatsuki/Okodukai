@@ -10,7 +10,7 @@
         <div class="page-profile">
             <img class="child-card__avatar" src="{{ $child->profile_image ? asset('storage/'.$child->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $child->name }}のプロフィール画像">
             <p class="page-heading__description">
-                <span class="child-name">{{ $child->name }}</span>さんのお手伝いの実績です。
+                <span class="child-name">{{ $child->name }}</span>さんのお手伝いの記録を行います。
             </p>
         </div>
 
