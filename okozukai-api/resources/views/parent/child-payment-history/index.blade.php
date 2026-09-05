@@ -6,8 +6,14 @@
 <div class="page-heading page-heading--with-action">
     <div>
         <p class="page-heading__eyebrow">PAYMENT HISTORY</p>
-        <h1><i class="fa-solid fa-cart-shopping"></i>お子様が使ったお金</h1>
-        <p class="page-heading__description">{{ $child->name }}さんが使用したおこづかいの履歴です。</p>
+        <h1><i class="fa-solid fa-cart-shopping"></i>使用したお金</h1>
+        <div class="page-profile">
+            <img class="child-card__avatar" src="{{ $child->profile_image ? asset('storage/'.$child->profile_image) : asset('images/default-profile.svg') }}" alt="{{ $child->name }}のプロフィール画像">
+            <p class="page-heading__description">
+                <span class="child-name">{{ $child->name }}</span>さんのお手伝いの実績です。
+            </p>
+        </div>
+
     </div>
     <a class="button button--secondary" href="{{ route('parent.children.show', $child) }}">お子様管理へ戻る</a>
 </div>
