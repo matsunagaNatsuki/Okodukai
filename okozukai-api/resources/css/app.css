@@ -137,8 +137,8 @@ a {
 }
 
 .brand-mark {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     display: grid;
     place-items: center;
     border: 2px solid rgb(255 255 255 / 72%);
