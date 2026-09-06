@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('amount');
             $table->unsignedTinyInteger('payment_day');
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(true); // 別のマイグレーションにて削除
             $table->timestamps();
             $table->softDeletes();
             $table->index('user_id');
