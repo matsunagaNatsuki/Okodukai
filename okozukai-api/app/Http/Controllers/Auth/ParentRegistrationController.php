@@ -16,11 +16,13 @@ use Illuminate\Validation\Rule;
 
 class ParentRegistrationController extends Controller
 {
+    // 保護者新規登録画面
     // public function create()
     // {
     //     return view('auth.parent-register');
     // }
 
+    // 保護者新規登録機能の処理
     public function store(Request $request)
     {
         // 保護者新規登録画面のバリデーション
