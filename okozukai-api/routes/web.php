@@ -48,19 +48,23 @@ Route::middleware('guest')->group(function () {
     )->name('parent.register.verify.store');
 });
 
+// '/'にアクセスしたら自動的に'/parent/login'にリダイレクト
 Route::redirect('/', '/parent/login');
 
+// 保護者画面にてお子様ユーザーのデータを取得する記述
 Route::bind('child', fn (string $value) => User::query()
     ->whereKey($value)
     ->where('role', 'child')
-    ->firstOrFail());
+    ->firstOrFail()
+);
 
+// 保護者管理画面
 Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(function () {
     // お子様一覧
     Route::get('/children', [ParentChildController::class, 'index'])
         ->name('children.index');
 
-    // お子様管理
+    // お子様管理一覧
     Route::get('/child/{child}', [ParentChildController::class, 'show'])
         ->name('children.show');
 
@@ -70,13 +74,13 @@ Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(funct
     Route::put('/pocket-money/{child}', [ParentPocketMoneyController::class, 'update'])
         ->name('pocket-money.update');
 
-    // お手伝い実績登録
+    // お手伝いの記録
     Route::get('/chores/performance/{child}', [ParentChorePerformanceController::class, 'create'])
         ->name('chores.performance');
     Route::post('/chores/performance/{child}', [ParentChorePerformanceController::class, 'store'])
         ->name('chores.performance.store');
 
-    // お手伝い履歴
+    // お手伝いの実績
     Route::get('/chores/history/{child}', [ParentChoreHistoryController::class, 'index'])
         ->name('chores.history');
     Route::put('/chores/history/{child}/{choreRecord}',[ParentChoreHistoryController::class, 'update'])
@@ -84,11 +88,11 @@ Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(funct
     Route::delete('/chores/history/{child}/{choreRecord}', [ParentChoreHistoryController::class, 'destroy'])
         ->name('chores.history.destroy');
 
-    // 支出履歴
+    // 使用したお金
     Route::get('/child-payment/history/{child}', ParentChildPaymentHistoryController::class)
         ->name('child-payment.history');
 
-    // 貯金目標
+    // 貯金の目標
     Route::get('/savings/{child}', ParentSavingController::class)
         ->name('savings.show');
 
@@ -104,7 +108,7 @@ Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(funct
     Route::delete('/family-account/{account}', [ParentFamilyAccountController::class, 'destroy'])
         ->name('family-account.destroy');
 
-    // お手伝い報酬設定
+    // お手伝い設定
     Route::get('/chores-setting', [ParentChoreSettingController::class, 'index'])
         ->name('chores-setting.index');
     Route::post('/chores-setting', [ParentChoreSettingController::class, 'store'])
@@ -114,38 +118,40 @@ Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(funct
     Route::delete('/chores-setting/{chore}', [ParentChoreSettingController::class, 'destroy'])
         ->name('chores-setting.destroy');
 
-    // プロフィール画面
+    // プロフィール設定
     Route::get('/profile', [ParentProfileController::class, 'edit'])
         ->name('profile.edit');
     Route::put('/profile', [ParentProfileController::class, 'update'])
         ->name('profile.update');
 });
 
+// お子様画面
 Route::prefix('child')->name('child.')->middleware('role.child')->group(function () {
     // お子様ログイン
     Route::get('/login', [ChildAuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [ChildAuthController::class, 'login'])->name('login.store');
+
     // お子様ログアウト
     Route::post('/logout', [ChildAuthController::class, 'logout'])->name('logout');
 
     // お子様ホーム画面
     Route::get('/', ChildHomeController::class)->name('home');
 
-    // おこづかい使用記録
+    // 使ったお金を記録
     Route::get('/payment-record', [ChildPaymentRecordController::class, 'create'])
         ->name('payment-record.create');
     Route::post('/payment-record', [ChildPaymentRecordController::class, 'store'])
         ->name('payment-record.store');
 
-    // おこづかい使用履歴
+    // 最近使ったお金
     Route::get('/payment-history', ChildPaymentHistoryController::class)
         ->name('payment-history.index');
 
-    // お手伝い履歴
+    // お手伝いの記録
     Route::get('/chores/history', ChildChoreHistoryController::class)
         ->name('chores.history');
 
-    // 貯金目標
+    // ためたいお金
     Route::get('/savings', [ChildSavingController::class, 'show'])
         ->name('savings.show');
     Route::post('/savings', [ChildSavingController::class, 'store'])
