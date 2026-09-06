@@ -42,8 +42,8 @@ Route::middleware('guest')->group(function () {
         [ParentRegistrationVerificationController::class, 'create']
     )->name('parent.register.verify');
 
-    Route::post(
-        '/parent/register/verify/{token}',
+    // 確認コード機能の処理
+    Route::post('/parent/register/verify/{token}',
         [ParentRegistrationVerificationController::class, 'store']
     )->name('parent.register.verify.store');
 });
