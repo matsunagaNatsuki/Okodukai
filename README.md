@@ -28,14 +28,13 @@
 
 | 項目 | 内容 |
 | --- | --- |
-| ユーザー名 | 松永 菜月 |
+| ユーザー名 | 保護者ユーザー |
 | メールアドレス | [test@gmail.com](mailto:test@gmail.com) |
 | パスワード | `password` |
 
 本番環境の保護者ログイン画面から上記の情報でログインできます。
 お子様アカウントは、ログイン後にナビゲーションの「家族アカウント」から作成できます。
 作成時に設定した家族コード、ログインID、パスワードを使用して、お子様用ログイン画面から動作をご確認いただけます。
-
 
 ## 4. 機能要件
 
@@ -74,7 +73,158 @@
 | パスワード再設定 | Fortifyの再設定リンクをメールで送り、新しいパスワードを設定できます。 |
 | ロール・家族単位の権限制御 | 保護者用・お子様用画面をMiddlewareで分離し、Policy / Gateで他家族のデータ操作を制限しています。 |
 
-## 5. 実装面の工夫とこだわり
+## 5. テーブル設計
+
+以下は、Migrationを適用した後のMySQL上の構造を基準にしています。`created_at`、`updated_at`、`deleted_at` はLaravelのMigration定義上NULLを許可します。キャッシュ、セッション、キュー、Personal Access Token、Passkeyなど、フレームワーク管理用の汎用テーブルは掲載対象外としています。
+
+### `users` テーブル
+
+保護者・お子様のユーザー情報を管理します。`role` により利用できる画面を分け、`family_id` により家族との所属関係を表します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `family_id` | BIGINT UNSIGNED |  |  |  | `families(id)` |
+| `name` | VARCHAR(255) |  |  | ○ |  |
+| `email` | VARCHAR(255) |  | ○ |  |  |
+| `login_id` | VARCHAR(100) |  |  |  |  |
+| `password` | VARCHAR(255) |  |  | ○ |  |
+| `role` | ENUM('parent', 'child') |  |  | ○ |  |
+| `profile_image` | VARCHAR(255) |  |  |  |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+| `deleted_at` | TIMESTAMP |  |  |  |  |
+
+### `families` テーブル
+
+家族と、家族を識別する8文字の家族コードを管理します。代表となる保護者を `owner_user_id` で保持します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `owner_user_id` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `family_code` | CHAR(8) |  | ○ | ○ |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+| `deleted_at` | TIMESTAMP |  |  |  |  |
+
+### `password_reset_tokens` テーブル
+
+Fortifyのパスワード再設定リンクで使用するトークンを管理します。メールアドレスを主キーとして使用します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `email` | VARCHAR(255) | ○ |  | ○ |  |
+| `token` | VARCHAR(255) |  |  | ○ |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+
+### `password_reset_codes` テーブル
+
+確認コード方式のパスワード再設定用データを管理します。コードの有効期限と使用日時を記録できます。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `user_id` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `code` | CHAR(4) |  |  | ○ |  |
+| `expires_at` | TIMESTAMP |  |  | ○ |  |
+| `used_at` | TIMESTAMP |  |  |  |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+
+### `parent_registration_verifications` テーブル
+
+保護者の本登録前に、入力情報とメール確認コードを一時保存します。確認用トークン、コードの有効期限、入力失敗回数を管理します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `token` | CHAR(36) |  | ○ | ○ |  |
+| `name` | VARCHAR(255) |  |  | ○ |  |
+| `email` | VARCHAR(255) |  |  | ○ |  |
+| `password` | TEXT |  |  | ○ |  |
+| `code` | VARCHAR(255) |  |  | ○ |  |
+| `expires_at` | TIMESTAMP |  |  | ○ |  |
+| `attempts` | TINYINT UNSIGNED |  |  | ○ |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+
+### `chores` テーブル
+
+保護者が家族単位で設定したお手伝いの名称と報酬金額を管理します。設定を作成したユーザーも記録します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `family_id` | BIGINT UNSIGNED |  |  | ○ | `families(id)` |
+| `chore_name` | VARCHAR(100) |  |  | ○ |  |
+| `reward_amount` | INT UNSIGNED |  |  | ○ |  |
+| `created_by` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+| `deleted_at` | TIMESTAMP |  |  |  |  |
+
+### `chore_records` テーブル
+
+お子様が行ったお手伝い実績を管理します。対象のお子様、お手伝い、報酬額、実績を登録した保護者を記録します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `user_id` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `chore_id` | BIGINT UNSIGNED |  |  | ○ | `chores(id)` |
+| `registered_by` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `reward_amount` | INT UNSIGNED |  |  | ○ |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+
+### `allowances` テーブル
+
+保護者がお子様へ行ったおこづかい入金を管理します。現行Migrationでは、支給日と有効・無効のカラムは削除されています。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `user_id` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `amount` | INT UNSIGNED |  |  | ○ |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+| `deleted_at` | TIMESTAMP |  |  |  |  |
+
+### `transactions` テーブル
+
+お子様のおこづかいに関する収入・支出履歴を管理します。お手伝い報酬の収入は、対応するお手伝い実績と1対1で関連付けられます。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `chore_record_id` | BIGINT UNSIGNED |  | ○ |  | `chore_records(id)` |
+| `user_id` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `type` | ENUM('income', 'expense') |  |  | ○ |  |
+| `category` | ENUM('allowance', 'chore', 'expense', 'adjustment') |  |  | ○ |  |
+| `amount` | INT UNSIGNED |  |  | ○ |  |
+| `transaction_date` | DATE |  |  |  |  |
+| `title` | VARCHAR(255) |  |  | ○ |  |
+| `created_by` | BIGINT UNSIGNED |  |  | ○ | `users(id)` |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+| `deleted_at` | TIMESTAMP |  |  |  |  |
+
+### `saving_goals` テーブル
+
+お子様が設定した貯金目標を管理します。`user_id` をUNIQUEにすることで、ユーザーごとに1件の目標を保持します。
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| --- | --- | :---: | :---: | :---: | --- |
+| `id` | BIGINT UNSIGNED | ○ |  | ○ |  |
+| `user_id` | BIGINT UNSIGNED |  | ○ | ○ | `users(id)` |
+| `item_name` | VARCHAR(255) |  |  | ○ |  |
+| `target_amount` | INT UNSIGNED |  |  | ○ |  |
+| `is_completed` | TINYINT(1) |  |  | ○ |  |
+| `created_at` | TIMESTAMP |  |  |  |  |
+| `updated_at` | TIMESTAMP |  |  |  |  |
+
+## 6. 実装面の工夫とこだわり
 
 ### 子どもにも分かりやすいUIと言葉選び
 
@@ -104,7 +254,7 @@
 
 開発用と本番用のDocker Compose構成を分け、本番ではNginxによるHTTPSへのリダイレクトと、Certbot / Let's Encryptの証明書を利用する構成にしています。主要な認証・権限・保護者／お子様向け機能についてはPestのFeatureテストを配置しています。
 
-## 6. 環境
+## 7. 環境
 
 ### 開発環境
 
@@ -130,7 +280,7 @@
 | HTTPS | Certbot / Let's Encrypt |
 | DB管理 | phpMyAdmin（ローカルホストからの接続に制限） |
 
-## 7. 使用技術
+## 8. 使用技術
 
 | 分類 | 技術 | 用途 |
 | --- | --- | --- |
@@ -147,7 +297,7 @@
 | Testing | Pest 5 | 認証、権限、収支、お手伝い、家族アカウントなどのFeatureテスト |
 | Development Tools | Composer / npm / Laravel Pint | 依存関係管理、フロントエンドビルド、コード整形 |
 
-## 8. 今後追加実装していきたい機能
+## 9. 今後追加実装していきたい機能
 
 ### キャッシュレス決済との連携
 
