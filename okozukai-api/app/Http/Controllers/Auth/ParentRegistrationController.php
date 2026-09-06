@@ -16,8 +16,14 @@ use Illuminate\Validation\Rule;
 
 class ParentRegistrationController extends Controller
 {
+    // public function create()
+    // {
+    //     return view('auth.parent-register');
+    // }
+
     public function store(Request $request)
     {
+        // 保護者新規登録画面のバリデーション
         $validated = $request->validate([
             'name' => [
                 'required',
@@ -48,27 +54,26 @@ class ParentRegistrationController extends Controller
             'password.confirmed' => 'パスワード確認が一致していません。',
         ]);
 
+        // 4桁の確認コードの作成
         $code = (string) random_int(1000, 9999);
 
+        // 保護者ユーザと確認コード情報をDBに作成
         $verification = ParentRegistrationVerification::create([
             'token' => (string) Str::uuid(),
-
             'name' => $validated['name'],
-
             'email' => $validated['email'],
-
-            'password' => Crypt::encryptString(
+            'password' => Crypt::encryptString( // パスワードの暗号化
                 $validated['password']
             ),
-
-            'code' => Hash::make($code),
-
-            'expires_at' => now()->addMinutes(10),
+            'code' => Hash::make($code), // 確認コードの暗号化
+            // 'expires_at' => now()->addMinutes(10), 確認コードの作成時間
         ]);
 
+        // 確認コードメールの送信内容
         Mail::to($validated['email'])
             ->send(new ParentRegistrationCodeMail($code));
 
+        // 確認コード入力画面にリダイレクト
         return redirect()->route(
             'parent.register.verify',
             ['token' => $verification->token]

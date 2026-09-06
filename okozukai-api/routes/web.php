@@ -23,17 +23,22 @@ use App\Http\Controllers\Auth\ParentRegistrationVerificationController;
 
 // 保護者新規登録の２要素認証
 Route::middleware('guest')->group(function () {
+    // Route::get('/parent/register',
+    //     [ParentRegistrationController::class, 'create']
+    // )->name('parent.register');
+
+    // 保護者新規登録画面
     Route::get('/parent/register', function () {
         return view('auth.parent-register');
     })->name('parent.register');
 
-    Route::post(
-        '/parent/register',
+    // 保護者新規登録機能の処理
+    Route::post('/parent/register',
         [ParentRegistrationController::class, 'store']
     )->name('parent.register.store');
 
-    Route::get(
-        '/parent/register/verify/{token}',
+    // 確認コード入力画面
+    Route::get('/parent/register/verify/{token}',
         [ParentRegistrationVerificationController::class, 'create']
     )->name('parent.register.verify');
 

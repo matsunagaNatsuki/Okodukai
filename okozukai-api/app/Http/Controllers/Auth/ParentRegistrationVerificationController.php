@@ -17,6 +17,7 @@ class ParentRegistrationVerificationController extends Controller
         $verification = ParentRegistrationVerification::where('token', $token)
             ->firstOrFail();
 
+        // 確認コード入力フォーム
         return view('auth.register-verify', [
             'token' => $verification->token,
             'email' => $verification->email,
