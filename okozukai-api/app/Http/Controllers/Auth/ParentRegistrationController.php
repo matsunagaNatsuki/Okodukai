@@ -68,7 +68,7 @@ class ParentRegistrationController extends Controller
                 $validated['password']
             ),
             'code' => Hash::make($code), // 確認コードの暗号化
-            // 'expires_at' => now()->addMinutes(10), 確認コードの作成時間
+            'expires_at' => now()->addMinutes(10), //仮登録が現在時刻の10分以内
         ]);
 
         // 確認コードメールの送信内容
