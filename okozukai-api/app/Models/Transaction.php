@@ -7,20 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-// 収入・収支
+// お子様の収支
 class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'chore_record_id',
-        'user_id',
-        'type',
+        'chore_record_id', // お手伝いの実績データ
+        'user_id', // 対象のお子様ユーザ
+        'type', // 収入 or 支出
         'category',
-        'amount',
-        'transaction_date',
-        'title',
-        'created_by',
+        /*  allowance = おこづかい入金での収入
+            chore = お手伝いで得た収入
+            expense = お子様が使ったもの
+            adjustment = 残高調整用 */
+        'amount', // 金額
+        'transaction_date', // おこづかい入金日時
+        'title', // お子様の収支の内容
+        'created_by', // 収支の申請をしたユーザ
     ];
 
     protected function casts(): array
@@ -37,13 +41,13 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    // お手伝い実績登録
+    // お手伝いの実績
     public function choreRecord(): BelongsTo
     {
         return $this->belongsTo(ChoreRecord::class);
     }
 
-    // 収支報告したユーザ
+    // お子様の収支を報告した保護者ユーザ
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

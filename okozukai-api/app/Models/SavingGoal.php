@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-// 貯金目標
+// 貯金の目標
 class SavingGoal extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'item_name',
-        'target_amount',
-        'is_completed',
+        'user_id', // お子様ユーザー
+        'item_name', // お子様が欲しいもの
+        'target_amount', // 目標金額
+        'is_completed', // 目標金額を達成したか
     ];
 
     protected function casts(): array

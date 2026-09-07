@@ -12,10 +12,10 @@ class PasswordResetCode extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'code',
-        'expires_at',
-        'used_at',
+        'user_id', // パスワード再設定したいユーザ
+        'code', // 4桁の確認コード
+        'expires_at', // 有効期限
+        'used_at', // 使用した時間
     ];
 
     protected $hidden = ['code'];

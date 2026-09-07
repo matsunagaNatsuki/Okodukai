@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-// 家族情報
+// 家族テーブル
 class Family extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'owner_user_id',
-        'family_code',
+        'owner_user_id', // 家族代表の保護者ユーザー
+        'family_code', // 8桁の家族アカウント番号
     ];
 
-    // 家族代表ユーザー
+    // 家族代表の保護者ユーザー
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_user_id');
@@ -30,7 +30,7 @@ class Family extends Model
         return $this->hasMany(User::class);
     }
 
-    // お手伝い報酬設定
+    // お手伝いの設定
     public function chores(): HasMany
     {
         return $this->hasMany(Chore::class);

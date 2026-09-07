@@ -21,13 +21,13 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
-        'family_id',
-        'name',
-        'email',
-        'login_id',
-        'password',
-        'role',
-        'profile_image',
+        'family_id', // ユーザに紐づく家族テーブル
+        'name', // ユーザ名
+        'email', // 保護者のメールアドレス
+        'login_id', // お子様のログインID
+        'password', // パスワード
+        'role', // parent or child
+        'profile_image', // プロフィール画像
     ];
 
     protected $hidden = [
@@ -48,6 +48,7 @@ class User extends Authenticatable
         ];
     }
 
+    // パスワード再設定のメールの件名と文章
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
@@ -65,7 +66,7 @@ class User extends Authenticatable
         return $this->hasOne(Family::class, 'owner_user_id');
     }
 
-    // お手伝い実績登録
+    // お手伝いの実績
     public function choreRecords(): HasMany
     {
         return $this->hasMany(ChoreRecord::class);
@@ -77,37 +78,37 @@ class User extends Authenticatable
         return $this->hasMany(ChoreRecord::class, 'registered_by');
     }
 
-    // ユーザが定期おこづかい設定をした最新データを取得
+    // 保護者がおこづかい入金をしたお子様の最新データを取得
     public function allowance(): HasOne
     {
         return $this->hasOne(Allowance::class)->latestOfMany();
     }
 
-    // 前ユーザのお手伝い実績
+    // お子様に対してのおこづかい入金
     public function allowances(): HasMany
     {
         return $this->hasMany(Allowance::class);
     }
 
-    // 収入・支出データ
+    // お子様の収入と収支に関するテーブル
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
     }
 
-    // 収支報告したユーザ
+    // お子様の収支を報告した保護者ユーザ
     public function createdTransactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'created_by');
     }
 
-    // 貯金目標
+    // 貯金の目標
     public function savingGoal(): HasOne
     {
         return $this->hasOne(SavingGoal::class);
     }
 
-    // お手伝い報酬を行なった保護者
+    // お手伝い設定を行なった保護者
     public function createdChores(): HasMany
     {
         return $this->hasMany(Chore::class, 'created_by');
