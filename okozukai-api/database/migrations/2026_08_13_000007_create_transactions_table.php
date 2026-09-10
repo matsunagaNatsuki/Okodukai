@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            // 対象のお子様ユーザ
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->enum('type', ['income', 'expense']);
             /*  income = 収入 expense = 支出 */
@@ -20,6 +21,7 @@ return new class extends Migration
                 adjustment = 残高調整用 */
             $table->unsignedInteger('amount');
             $table->string('title');
+            // 収支の申請をしたユーザ
             $table->foreignId('created_by')->constrained('users')->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes();

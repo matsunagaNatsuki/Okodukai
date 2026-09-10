@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    // おこづかい管理システム固有のカラムの要件を追加
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {

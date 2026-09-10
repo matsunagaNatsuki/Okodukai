@@ -9,6 +9,7 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // transactionsテーブルにchore_record_idカラム（お手伝い実績）を追加
         Schema::table('transactions', function (Blueprint $table) {
             $table->foreignId('chore_record_id')
                 ->nullable()
@@ -21,12 +22,14 @@ return new class extends Migration
         DB::table('chore_records')
             ->orderBy('id')
             ->each(function (object $record): void {
+                // お手伝い実績に紐づくお手伝いの設定（chore_id）のデータを取得
                 $chore = DB::table('chores')->where('id', $record->chore_id)->first();
 
                 if ($chore === null) {
                     return;
                 }
 
+                // 既存データから対応する収入取引を特定し、お手伝い実績と紐付ける
                 $candidates = DB::table('transactions')
                     ->whereNull('chore_record_id')
                     ->whereNull('deleted_at')

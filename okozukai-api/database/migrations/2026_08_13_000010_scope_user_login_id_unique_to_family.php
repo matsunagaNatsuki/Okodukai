@@ -8,6 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // 同じ家族の中だけlogin_idを重複禁止
         Schema::table('users', function (Blueprint $table) {
             $table->dropUnique('users_login_id_unique');
             $table->unique(['family_id', 'login_id'], 'users_family_login_id_unique');

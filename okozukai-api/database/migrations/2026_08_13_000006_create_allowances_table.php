@@ -10,9 +10,10 @@ return new class extends Migration
     {
         Schema::create('allowances', function (Blueprint $table) {
             $table->id();
+            // おこづかいを入金したお子様ユーザ
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('amount');
-            $table->unsignedTinyInteger('payment_day');
+            $table->unsignedTinyInteger('payment_day'); // 別のマイグレーションにて削除
             $table->boolean('is_active')->default(true); // 別のマイグレーションにて削除
             $table->timestamps();
             $table->softDeletes();

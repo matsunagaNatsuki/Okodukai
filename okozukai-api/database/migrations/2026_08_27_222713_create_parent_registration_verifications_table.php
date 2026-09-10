@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // 保護者新規登録の2要素認証
         Schema::create('parent_registration_verifications', function (Blueprint $table) {
             $table->id();
 

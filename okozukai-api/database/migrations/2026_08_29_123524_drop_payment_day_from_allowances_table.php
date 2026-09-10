@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // allowancesテーブルに入金日(payment_day)と支払済みか(is_active)のカラムを削除
         Schema::table('allowances', function (Blueprint $table) {
             $table->dropColumn('payment_day');
             $table->dropColumn('is_active');

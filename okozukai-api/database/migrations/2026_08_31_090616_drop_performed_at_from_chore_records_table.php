@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // お手伝い実施日(performed_at)カラムの削除
         Schema::table('chore_records', function (Blueprint $table) {
             $table->dropColumn('performed_at');
         });
