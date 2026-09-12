@@ -42,11 +42,15 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
+        // 保護者用ログイン画面
         Fortify::loginView(fn (Request $request) => view('auth.parent-login', [
             'savedEmail' => $request->cookie('saved_parent_email'),
         ]));
+        // 保護者新規登録画面
         Fortify::registerView(fn () => view('auth.parent-register'));
+        // パスワード再設定メアド入力画面
         Fortify::requestPasswordResetLinkView(fn () => view('auth.forgot-password'));
+        // 新しいパスワード入力画面
         Fortify::resetPasswordView(fn (Request $request) => view('auth.reset-password', [
             'request' => $request,
         ]));

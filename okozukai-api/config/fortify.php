@@ -161,6 +161,7 @@ return [
     |
     */
 
+    // パスワード再設定を有効
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
