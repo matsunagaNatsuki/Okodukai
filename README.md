@@ -308,13 +308,3 @@ Fortifyのパスワード再設定リンクで使用するトークンを管理�
 | Infrastructure | ConoHa VPS / Certbot / Let's Encrypt | 本番運用とHTTPS対応 |
 | Testing | Pest 5 | 認証、権限、収支、お手伝い、家族アカウントなどのFeatureテスト |
 | Development Tools | Composer / npm / Laravel Pint | 依存関係管理、フロントエンドビルド、コード整形 |
-
-## 9. 今後追加実装していきたい機能
-
-### キャッシュレス決済との連携
-
-お子様がおこづかいを使用した履歴を、より簡単かつ正確に残せるよう、利用可能なAPIや規約を確認したうえで、PayPayなどのキャッシュレス決済サービスとの連携を検討しています。
-
-### Flutterによるアプリ版
-
-Web版に加え、Flutterを用いたスマートフォンアプリ版の開発を目指し、現在はFlutterを学習しながら試作に取り組んでいます。今後はLaravel側のAPI整備と連携機能の実装を進め、完成度を高めたうえでApp Storeへの公開を目指します。
