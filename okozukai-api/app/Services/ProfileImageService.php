@@ -11,10 +11,10 @@ class ProfileImageService
 {
     public function update(User $user, string $name, ?UploadedFile $image): void
     {
-        // 先にアップロードされているプロフィール画像
+        // 更新前のプロフィール画像の保存先パスを取得
         $oldPath = $user->profile_image;
 
-        // 新しくアップロードされたファイルを、publicディスク内のprofile-imagesフォルダに保存
+        // 新しくアップロードされた画像ファイルを、'storage/app/public/profile-images'に保存
         $newPath = $image?->store('profile-images', 'public');
 
         // プロフィール更新処理

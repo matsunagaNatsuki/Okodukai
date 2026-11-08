@@ -5,6 +5,7 @@
             <span>おこづかい</span>
         </a>
 
+        {{-- ナビゲーションメニューを操作 --}}
         @if ($showNavigation)
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="global-navigation">
                 <span class="visually-hidden">メニューを開く</span>

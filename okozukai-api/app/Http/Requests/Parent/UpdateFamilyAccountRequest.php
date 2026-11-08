@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Parent;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
@@ -23,13 +22,17 @@ class UpdateFamilyAccountRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:100'],
-            // 保護者ユーザの場合はemailを使用
+            // ログイン中のユーザが保護者ならばemailを使用
             'email' => $account->role === 'parent'
+                // true
                 ? ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($account->id)]
+                // false
                 : ['nullable', Rule::prohibitedIf(filled($this->input('email')))],
-            // 保護者ユーザの場合はログインIDを使用
+            // ログイン中のユーザがお子様ならばログインIDを使用
             'login_id' => $account->role === 'parent'
+                // true
                 ? ['nullable', Rule::prohibitedIf(filled($this->input('login_id')))]
+                // false
                 : [
                     'required',
                     'string',
@@ -44,7 +47,11 @@ class UpdateFamilyAccountRequest extends FormRequest
 
     public function attributes(): array
     {
-        return ['name' => '名前', 'email' => 'メールアドレス', 'login_id' => 'ログインID', 'password' => 'パスワード'];
+        return ['name' => '名前',
+                'email' => 'メールアドレス',
+                'login_id' => 'ログインID',
+                'password' => 'パスワード'
+            ];
     }
 
     public function messages(): array

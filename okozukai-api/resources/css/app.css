@@ -238,8 +238,8 @@ a {
 .page-card:active {
     transform: translateY(2px);
 }
-
-.page-card:first-of-type {
+.page-card:first-of-type
+{
     margin-top: 15px;
 }
 
@@ -439,6 +439,11 @@ a {
 .saving-goal-item strong {
     color: #704707;
     font-size: clamp(1.4rem, 5vw, 2rem);
+}
+
+.saving-stat-grid--home {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0 0 18px;
 }
 
 .saving-stat-grid {
@@ -812,10 +817,6 @@ a {
     font-size: 1.3rem;
 }
 
-.saving-stat-grid--home {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 0 0 18px;
-}
 
 .home-goal-achieved {
     margin: 15px 0 0;
@@ -857,8 +858,15 @@ a {
     font-size: .8rem;
 }
 
-.recent-transaction .is-income { color: var(--color-success); font-weight: 700; }
-.recent-transaction .is-expense { color: var(--color-error); font-weight: 700; }
+.recent-transaction .is-income {
+    color: var(--color-success);
+    font-weight: 700;
+}
+
+.recent-transaction .is-expense {
+    color: var(--color-error);
+    font-weight: 700;
+}
 
 .history-card {
     padding: 20px;

@@ -15,7 +15,9 @@
         <form method="POST" action="{{ route('parent.chores-setting.store') }}" data-loading data-loading-message="登録しています..." novalidate>
             @csrf
             <div class="form-group">
-                <label class="form-label" for="chore_name">お手伝いの内容 <span class="required-label">必須</span></label>
+                <label class="form-label" for="chore_name">お手伝いの内容
+                    <span class="required-label">必須</span>
+                </label>
                 <input class="form-control
                         @error('chore_name') is-invalid
                         @enderror" id="chore_name" name="chore_name" type="text" value="{{ old('chore_name') }}" maxlength="100" required>
@@ -25,7 +27,9 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="reward_amount">おこづかい金額 <span class="required-label">必須</span></label>
+                <label class="form-label" for="reward_amount">おこづかい金額
+                    <span class="required-label">必須</span>
+                </label>
                 <div class="amount-field">
                     <input class="form-control @error('reward_amount') is-invalid @enderror" id="reward_amount" name="reward_amount" type="number" value="{{ old('reward_amount') }}" min="1" step="1" inputmode="numeric" required>
                     <span>円</span>

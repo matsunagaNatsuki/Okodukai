@@ -11,6 +11,7 @@ class StoreChorePerformanceRequest extends FormRequest
 {
     public function authorize(): bool
     {
+        // ログイン中の保護者ユーザが指定した子どもの情報を閲覧してもいいか？
         return $this->user()?->role === 'parent'
             && $this->user()->family_id !== null
             && Gate::forUser($this->user())->allows('viewFamilyChild', $this->route('child'));
@@ -25,9 +26,12 @@ class StoreChorePerformanceRequest extends FormRequest
             'chore_id' => [
                 'required',
                 'integer',
+                // お手伝い実績テーブルにログイン中のユーザのchores_idがあるか？
                 Rule::exists('chores', 'id')->where(
                     fn (Builder $query) => $query
+                        // ログイン中のfamily_idを取得
                         ->where('family_id', $this->user()->family_id)
+                        // 論理削除したデータは入れない
                         ->whereNull('deleted_at'),
                 ),
             ],

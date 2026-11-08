@@ -31,7 +31,7 @@ class ChildPaymentRecordController extends Controller
     // 使用したおこづかいを記録する処理
     public function store(StorePaymentRecordRequest $request): RedirectResponse
     {
-        // TransactionServiceでおこづかいの登録処理を行う
+        // お子様が使用したおこづかいのデータを登録
         $this->transactionService->recordExpense($request->user(), $request->validated());
 
         return redirect()

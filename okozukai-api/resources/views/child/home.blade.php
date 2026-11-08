@@ -38,24 +38,42 @@
         @if ($savingGoal)
         <h3 class="home-goal-name">{{ $savingGoal->item_name }}</h3>
         <div class="saving-stat-grid saving-stat-grid--home">
-            <div class="saving-stat"><span>ためたいお金</span><strong>￥{{ number_format($savingGoal->target_amount) }}円</strong></div>
-            <div class="saving-stat"><span>あといくら？</span><strong>{{ number_format($remainingAmount) }}円</strong></div>
-            <div class="saving-stat"><span>ゴールまで</span><strong>{{ number_format($achievementRate, 1) }}%</strong></div>
+            <div class="saving-stat">
+                <span>ためたいお金</span>
+                <strong>￥{{ number_format($savingGoal->target_amount) }}円</strong>
+            </div>
+            <div class="saving-stat">
+                <span>あといくら？</span>
+                <strong>{{ number_format($remainingAmount) }}円</strong>
+            </div>
+            <div class="saving-stat">
+                <span>ゴールまで</span>
+                <strong>{{ number_format($achievementRate, 1) }}%</strong>
+            </div>
         </div>
         <div class="goal-progress" role="progressbar" aria-label="貯金達成率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ $progressRate }}">
             <span class="goal-progress__bar" style="width: {{ $progressRate }}%"></span>
         </div>
-        @if ($currentBalance >= $savingGoal->target_amount)<p class="home-goal-achieved">やったね！目標クリア！🎉</p>@endif
+        @if ($currentBalance >= $savingGoal->target_amount)
+        <p class="home-goal-achieved">やったね！目標クリア！🎉</p>
+        @endif
         @else
         <div class="home-empty">
-            <p>まだためたいお金の設定がありません。</p><a class="button button--primary button--small" href="{{ route('child.savings.show') }}">ためたいお金を設定する</a>
+            <p>まだためたいお金の設定がありません。</p>
+            <a class="button button--primary button--small" href="{{ route('child.savings.show') }}">
+                ためたいお金を設定する
+            </a>
         </div>
         @endif
     </section>
 
     <section class="home-panel">
         <div class="home-panel__heading">
-            <h2><i class="fa-solid fa-receipt"></i>おこづかいの記録</h2><a href="{{ route('child.payment-history.index') }}">最近使ったお金を見る</a>
+            <h2>
+                <i class="fa-solid fa-receipt"></i>
+                おこづかいの記録
+            </h2>
+            <a href="{{ route('child.payment-history.index') }}">最近使ったお金を見る</a>
         </div>
         @if ($recentTransactions->isEmpty())
         <div class="home-empty">
@@ -66,7 +84,10 @@
             @foreach ($recentTransactions as $transaction)
             <div class="recent-transaction">
                 @php($transactionDate = $transaction->transaction_date ?? $transaction->created_at)
-                <div><strong>{{ $transaction->title }}</strong><time datetime="{{ $transactionDate->toDateString() }}">{{ $transactionDate->format('n月j日') }}</time></div>
+                <div>
+                    <strong>{{ $transaction->title }}</strong>
+                    <time datetime="{{ $transactionDate->toDateString() }}">{{ $transactionDate->format('n月j日') }}</time>
+                </div>
                 <span class="{{ $transaction->type === 'income' ? 'is-income' : 'is-expense' }}">{{ $transaction->type === 'income' ? '+' : '-' }}{{ number_format($transaction->amount) }}円</span>
             </div>
             @endforeach

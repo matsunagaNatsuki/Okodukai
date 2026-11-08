@@ -10,6 +10,7 @@ class StoreFamilyAccountRequest extends FormRequest
 {
     public function authorize(): bool
     {
+        // ログイン中のユーザが保護者で家族IDを持っている場合のみリクエストを許可
         return $this->user()?->role === 'parent' && $this->user()->family_id !== null;
     }
 
@@ -24,9 +25,11 @@ class StoreFamilyAccountRequest extends FormRequest
             // 保護者のみメールアドレスを使用
             'email' => $isParent
                 ? ['required', 'email', 'max:255', Rule::unique('users', 'email')]
+                // 子どもに入力するときはemailを入れれない
                 : ['nullable', Rule::prohibitedIf(filled($this->input('email')))],
             // 子どものみログインIDを使用
             'login_id' => $isParent
+                // 保護者に入力するときはログインIDは入れれない
                 ? ['nullable', Rule::prohibitedIf(filled($this->input('login_id')))]
                 : [
                     'required',

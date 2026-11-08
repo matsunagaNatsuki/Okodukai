@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Parent;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Parent\UpsertAllowanceRequest;
-use App\Models\Allowance;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +12,7 @@ use Illuminate\View\View;
 
 class ParentPocketMoneyController extends Controller
 {
-    // 定期おこづかいの設定
+    // おこづかい入金画面
     public function edit(User $child): View
     {
         // ログインしている保護者が、指定された子どもの情報を閲覧してよいか確認
@@ -25,7 +24,7 @@ class ParentPocketMoneyController extends Controller
         ]);
     }
 
-    // 定期おこづかいの更新
+    // おこづかい入金処理
     public function update(UpsertAllowanceRequest $request, User $child): RedirectResponse
     {
         // ログインしている保護者が、指定された子どもの情報を閲覧してよいか
@@ -44,11 +43,11 @@ class ParentPocketMoneyController extends Controller
             //     ->first();
 
             // バリデーション済みの値を、新しい配列にまとめる
-            $attributes = [
-                'amount' => $validated['amount'],
-                // 'payment_day' => $validated['payment_day'],
-                // 'is_active' => $validated['is_active'],
-            ];
+            // $attributes = [
+            // 'amount' => $validated['amount'],
+            // 'payment_day' => $validated['payment_day'],
+            // 'is_active' => $validated['is_active'],
+            // ];
 
             // if ($allowance === null) {
             //     $child->allowances()->create($attributes);
@@ -56,6 +55,7 @@ class ParentPocketMoneyController extends Controller
             //     $allowance->update($attributes);
             // }
 
+            // 収入・収支管理のテーブルにおこづかい入金データを新規作成
             $child->transactions()->create([
                 'type' => 'income',
                 'category' => 'allowance',
@@ -65,11 +65,11 @@ class ParentPocketMoneyController extends Controller
                 'created_by' => $request->user()->id,
             ]);
 
-            // allowancesテーブルに新しいレコードを作成
+            // おこづかい入金テーブルにて金額データを挿入
             $child->allowances()->create([
                 'amount' => $validated['amount'],
             ]);
-            
+
             // Allowance::create([
             //     'user_id' => $child->id,
             //     'amount' => $attributes['amount'],

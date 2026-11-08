@@ -33,6 +33,7 @@ class FamilyAccountService
             'login_id' => $account->role === 'child' ? $attributes['login_id'] : null,
         ];
 
+        // パスワードが入力されていたらハッシュ化する
         if (filled($attributes['password'] ?? null)) {
             $values['password'] = Hash::make($attributes['password']);
         }

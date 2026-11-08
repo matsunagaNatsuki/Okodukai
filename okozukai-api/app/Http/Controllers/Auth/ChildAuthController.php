@@ -27,11 +27,14 @@ class ChildAuthController extends Controller
 
         // $validatedで取得したデータの家族コードを取得
         $family = Family::where('family_code', $validated['family_code'])->first();
+
+        // 家族コードが存在する場合は、ユーザー情報を取得する
         $child = $family?->users()
             ->where('login_id', $validated['login_id'])
             ->where('role', 'child')
             ->first();
 
+        // お子様ユーザが見つからないもしくは、ログイン認証情報が違う時
         if ($child === null || ! Auth::attempt([
             'id' => $child->id,
             'password' => $validated['password'],

@@ -20,7 +20,7 @@ class ChildHomeController extends Controller
         $savingGoal = $child->savingGoal;
         // お子様の現在残高を計算
         $currentBalance = $this->balanceService->for($child);
-        // 収支の履歴
+        // 収支の履歴を登録日時が新しい順に5件取得する
         $recentTransactions = $child->transactions()
             ->orderByDesc('created_at')
             ->orderByDesc('id')
@@ -34,9 +34,11 @@ class ChildHomeController extends Controller
         if ($savingGoal !== null) {
             // 目標までの残金を計算 (目標金額 - 現在残高)
             $remainingAmount = max($savingGoal->target_amount - $currentBalance, 0);
-            // 貯金目標に対する達成率を計算
+            // 貯金目標を設定していたら
             $achievementRate = $savingGoal->target_amount > 0
+                // 達成率を計算
                 ? max(($currentBalance / $savingGoal->target_amount) * 100, 0)
+                // 目標を設定していなかったら0
                 : 0;
         }
 

@@ -11,8 +11,11 @@ class UpdateChoreRecordRequest extends FormRequest
 {
     public function authorize(): bool
     {
+        // ログイン中のユーザが保護者か
         return $this->user()?->role === 'parent'
+            // 指定された子どもの情報を閲覧してよいか
             && Gate::forUser($this->user())->allows('viewFamilyChild', $this->route('child'))
+            // 子どものお手伝い実績を操作してよいか
             && Gate::forUser($this->user())->allows('manageChoreRecord', $this->route('choreRecord'));
     }
 
@@ -23,9 +26,12 @@ class UpdateChoreRecordRequest extends FormRequest
             'chore_id' => [
                 'required',
                 'integer',
+                // 選択したお手伝い設定がログイン中の保護者の家族idに紐づいているか
                 Rule::exists('chores', 'id')->where(
                     fn (Builder $query) => $query
+                        // ログイン中の保護者の家族id
                         ->where('family_id', $this->user()->family_id)
+                        // 論理削除は含まない
                         ->whereNull('deleted_at'),
                 ),
             ],

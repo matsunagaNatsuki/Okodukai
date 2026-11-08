@@ -65,7 +65,7 @@ class ParentChoreHistoryController extends Controller
             ->where('family_id', $request->user()->family_id)
             ->findOrFail($validated['chore_id']);
 
-        // ChoreRecordServiceクラスでお手伝いの新規登録処理を行う
+        // お手伝い履歴と収入履歴の更新処理
         $this->choreRecordService->update($choreRecord, $chore, $validated);
 
         return redirect()
@@ -76,11 +76,11 @@ class ParentChoreHistoryController extends Controller
     // お手伝い履歴の削除
     public function destroy(User $child, ChoreRecord $choreRecord): RedirectResponse
     {
-        // ログイン中の保護者が、このお手伝い実績を操作してよいか確認
+        // ログイン中の保護者が、子どものお手伝い実績を操作してよいか確認
         Gate::authorize('manageChoreRecord', $choreRecord);
         // $this->ensureRecordBelongsToChild($child, $choreRecord);
 
-        // ChoreRecordServiceクラスでお手伝いの削除処理を行う
+        // ChoreRecordServiceクラスでお手伝い履歴の削除処理を行う
         $this->choreRecordService->delete($choreRecord);
 
         return redirect()

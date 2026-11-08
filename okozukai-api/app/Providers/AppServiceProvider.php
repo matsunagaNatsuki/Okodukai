@@ -19,9 +19,8 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
+
+    // UserPolicyの認可処理と紐付け
     public function boot(): void
     {
         Gate::policy(User::class, UserPolicy::class);

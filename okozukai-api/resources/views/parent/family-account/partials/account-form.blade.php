@@ -1,7 +1,10 @@
 {{-- 家族アカウントの追加、編集の入力フォーム --}}
 
+    {{-- 編集モードか？ --}}
 @php($editing = $editing ?? false)
+    {{-- 家族に属するアカウント --}}
 @php($account = $account ?? null)
+    {{-- エラー送信前に値が$prefixかどうか判定する --}}
 @php($isCurrentForm = old('form_context') === $prefix)
 <input type="hidden" name="form_context" value="{{ $prefix }}">
 <div class="account-form-grid">
@@ -27,11 +30,11 @@
             </label>
             <input class="form-control {{ $isCurrentForm && $errors->has('email') ? 'is-invalid' : '' }}" id="{{ $prefix }}-email" name="email" type="email" value="{{ $isCurrentForm ? old('email') : ($editing ? $account->email : '') }}" maxlength="255" required>
             @if ($isCurrentForm)
-                @error('email')
-                <p class="field-error">
-                    {{ $message }}
-                </p>
-                @enderror
+            @error('email')
+            <p class="field-error">
+                {{ $message }}
+            </p>
+            @enderror
             @endif
         </div>
     @else
@@ -42,11 +45,11 @@
             </label>
             <input class="form-control {{ $isCurrentForm && $errors->has('login_id') ? 'is-invalid' : '' }}" id="{{ $prefix }}-login-id" name="login_id" type="text" value="{{ $isCurrentForm ? old('login_id') : ($editing ? $account->login_id : '') }}" maxlength="100" required>
             @if ($isCurrentForm)
-                @error('login_id')
-                <p class="field-error">
-                    {{ $message }}
-                </p>
-                @enderror
+            @error('login_id')
+            <p class="field-error">
+                {{ $message }}
+            </p>
+            @enderror
             @endif
         </div>
     @endif
@@ -54,7 +57,7 @@
         <label class="form-label" for="{{ $prefix }}-password">
             パスワード
             @unless($editing)
-                <span class="required-label">必須</span>
+            <span class="required-label">必須</span>
             @endunless
         </label>
         <input class="form-control {{ $isCurrentForm && $errors->has('password') ? 'is-invalid' : '' }}" id="{{ $prefix }}-password" name="password" type="password" minlength="8" maxlength="15" autocomplete="new-password" @required(!$editing)>
@@ -63,11 +66,11 @@
         <p class="form-help">変更しない場合は空欄のままにしてください。</p>
         @endif
         @if ($isCurrentForm)
-            @error('password')
-            <p class="field-error">
-                {{ $message }}
-            </p>
-            @enderror
+        @error('password')
+        <p class="field-error">
+            {{ $message }}
+        </p>
+        @enderror
         @endif
     </div>
     <div class="form-group">

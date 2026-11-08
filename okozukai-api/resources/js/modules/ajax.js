@@ -1,10 +1,14 @@
 import $ from 'jquery';
 
 export function configureAjax() {
+    // Ajax通信の共通設定
     $.ajaxSetup({
         headers: {
+            // bladeに記載しているcontentの値を取得する
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            // LaravelにレスポンスはJSON形式で返すと指示する
             Accept: 'application/json',
+            // このリクエストはAjax通信だということをLaravelに伝える
             'X-Requested-With': 'XMLHttpRequest',
         },
     });

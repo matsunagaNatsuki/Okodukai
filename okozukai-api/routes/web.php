@@ -128,14 +128,18 @@ Route::prefix('parent')->name('parent.')->middleware('role.parent')->group(funct
 // お子様画面
 Route::prefix('child')->name('child.')->middleware('role.child')->group(function () {
     // お子様ログイン
-    Route::get('/login', [ChildAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [ChildAuthController::class, 'login'])->name('login.store');
+    Route::get('/login', [ChildAuthController::class, 'showLogin'])
+        ->name('login');
+    Route::post('/login', [ChildAuthController::class, 'login'])
+        ->name('login.store');
 
     // お子様ログアウト
-    Route::post('/logout', [ChildAuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [ChildAuthController::class, 'logout'])
+        ->name('logout');
 
     // お子様ホーム画面
-    Route::get('/', ChildHomeController::class)->name('home');
+    Route::get('/', ChildHomeController::class)
+        ->name('home');
 
     // 使ったお金を記録
     Route::get('/payment-record', [ChildPaymentRecordController::class, 'create'])

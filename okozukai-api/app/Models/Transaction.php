@@ -13,14 +13,10 @@ class Transaction extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'chore_record_id', // お手伝いの実績データ
-        'user_id', // 対象のお子様ユーザ
+        'chore_record_id', // お手伝いの履歴
+        'user_id', // お子様ユーザ情報
         'type', // 収入 or 支出
-        'category',
-        /*  allowance = おこづかい入金での収入
-            chore = お手伝いで得た収入
-            expense = お子様が使ったもの
-            adjustment = 残高調整用 */
+        'category',// 収支の種類
         'amount', // 金額
         'transaction_date', // おこづかい入金日時
         'title', // お子様の収支の内容

@@ -44,7 +44,7 @@ class UserPolicy
 
     public function deleteFamilyUser(User $parent, User $account): bool
     {
-        // 同じ家族のアカウントかつ、本人・家族オーナー以外の場合のみ削除を許可
+        // 同じ家族の保護者アカウントかつ、本人・家族オーナー以外の場合のみ削除を許可
         return $this->manageFamilyUser($parent, $account)
             && $parent->id !== $account->id
             && $parent->family?->owner_user_id !== $account->id;

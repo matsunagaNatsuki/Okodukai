@@ -13,6 +13,7 @@ use Illuminate\View\View;
 
 class ParentChoreSettingController extends Controller
 {
+    // お手伝い設定画面
     public function index(Request $request): View
     {
         // お手伝いの内容と報酬設定のデータを取得
@@ -30,7 +31,9 @@ class ParentChoreSettingController extends Controller
     public function store(ChoreSettingRequest $request): RedirectResponse
     {
         $request->user()->family->chores()->create([
+            // バリデーションを通過したデータ全て取得
             ...$request->validated(),
+            // ログイン中のユーザの保護者id
             'created_by' => $request->user()->id,
         ]);
 

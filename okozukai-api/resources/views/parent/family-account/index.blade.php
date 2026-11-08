@@ -9,13 +9,13 @@
     <p class="page-heading__description">家族コード：<strong>{{ $family->family_code }}</strong></p>
 </div>
 
-{{-- 家族アカウントの追加処理 --}}
+{{-- 家族アカウントの追加 --}}
 <section class="account-create-section">
     <details class="account-create-panel" @if (old('form_context') === 'new-parent') open @endif>
         <summary><i class="fa-solid fa-person"></i>保護者を追加</summary>
         <form method="POST" action="{{ route('parent.family-account.parents.store') }}" data-loading data-loading-message="追加しています..." novalidate>
             @csrf
-            {{-- 保護者追加用の入力フォームとして、HTML要素のIDに「new-parent」を付けた共通フォームを表示 --}}
+            {{-- 保護者アカウント追加の入力フォーム用のblade --}}
             @include('parent.family-account.partials.account-form', ['type' => 'parent', 'prefix' => 'new-parent'])
             <button class="button button--primary" type="submit">保護者を追加する</button>
         </form>
@@ -25,7 +25,7 @@
         <summary><i class="fa-solid fa-child-dress"></i>子どもを追加</summary>
         <form method="POST" action="{{ route('parent.family-account.children.store') }}" data-loading data-loading-message="追加しています..." novalidate>
             @csrf
-            {{-- お子様追加用の入力フォームとして、HTML要素のIDに「new-child」を付けた共通フォームを表示 --}}
+            {{-- お子様アカウント追加の入力フォーム用のblade --}}
             @include('parent.family-account.partials.account-form', ['type' => 'child', 'prefix' => 'new-child'])
             <button class="button button--primary" type="submit">子どもを追加する</button>
         </form>
@@ -35,9 +35,9 @@
 <div class="ajax-message" data-ajax-message aria-live="polite"></div>
 
 <div class="family-account-list">
-    {{-- 家族アカウント全員の表示 --}}
+    {{-- 家族アカウントの表示 --}}
     @foreach ($accounts as $account)
-    {{-- ログイン中の本人または家族のオーナーは削除不可 --}}
+    {{-- ログイン中の本人または家族代表は削除不可 --}}
     @php($cannotDelete = auth()->id() === $account->id || $family->owner_user_id === $account->id)
     <article class="family-account-card" data-family-account-card="{{ $account->id }}">
         <div class="family-account-summary">
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        {{-- 家族アカウントの編集処理--}}
+        {{-- 家族アカウントの編集--}}
         <details class="history-editor family-account-editor" @if (old('form_context') === 'account-'.$account->id) open @endif>
             <summary>編集する</summary>
             <form method="POST" action="{{ route('parent.family-account.update', $account) }}" data-loading data-loading-message="更新しています..." novalidate>
@@ -77,13 +77,13 @@
             </form>
         </details>
 
-        {{-- ログイン中の本人または家族代表は削除不可 --}}
+        {{-- 家族アカウントの削除処理 --}}
         <div class="family-account-delete">
             @if ($cannotDelete)
             <p class="protected-account-note">
                 {{ auth()->id() === $account->id ? 'ログイン中のアカウントは削除できません。' : '家族代表のアカウントは削除できません。' }}
             </p>
-            {{-- ログイン中の本人または家族代表でなければ削除可能--}}
+            {{-- 削除可能 --}}
             @else
             <button class="button button--danger-subtle button--small" type="button" data-ajax-delete data-delete-url="{{ route('parent.family-account.destroy', $account) }}" data-delete-target="[data-family-account-card]" data-delete-title="家族アカウントの削除" data-delete-message="「{{ $account->name }}」のアカウントを削除しますか？この操作は元に戻せません。">削除する</button>
             @endif

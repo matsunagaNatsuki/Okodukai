@@ -67,7 +67,7 @@
         {{-- 現在残高が0の時は記録しない--}}
         @if ($currentBalance < 1)
             <p class="field-error payment-balance-warning">残りのお金がないため、使ったお金を記録できません。</p>
-            @endif
+        @endif
     </form>
 </section>
 @endsection

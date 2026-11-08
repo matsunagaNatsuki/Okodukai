@@ -67,15 +67,19 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
 
+            // 保護者ログインの「メールアドレスを保存する」にチェックした場合
             if ($request->boolean('save_email')) {
+                // メールアドレスをCookieに30日間保存する処理
                 Cookie::queue('saved_parent_email', $parent->email, 60 * 24 * 30);
             } else {
+                // チェックしていない時はCookieを削除
                 Cookie::queue(Cookie::forget('saved_parent_email'));
             }
 
             return $parent;
         });
 
+        // 1分間に5回目以上ログインアクセスを行った場合の制限の処理
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 
