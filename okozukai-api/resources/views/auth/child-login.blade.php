@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '子どもログイン | おこづかい')
+@section('title', 'お子様ログイン | おこづかい')
 
 @section('content')
     <section class="auth-card">
