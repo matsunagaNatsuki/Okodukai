@@ -11,6 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // お手伝い実施日(performed_at)のindexを削除
+        Schema::table('chore_records', function (Blueprint $table) {
+            $table->dropIndex('chore_records_user_id_performed_at_index');
+        });
+
         // お手伝い実施日(performed_at)カラムの削除
         Schema::table('chore_records', function (Blueprint $table) {
             $table->dropColumn('performed_at');
@@ -22,6 +27,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // 再作成する際はunsignedTinyIntegerにロールバックする
+        Schema::table('chore_records', function (Blueprint $table) {
+            $table->unsignedTinyInteger('performed_at');
+        });
+
+        // 一度削除したindexカラムをロールバック
         Schema::table('chore_records', function (Blueprint $table) {
             $table->unsignedTinyInteger('performed_at');
         });
