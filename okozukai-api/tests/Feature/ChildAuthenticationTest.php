@@ -30,7 +30,7 @@ function createFamilyWithChild(array $childAttributes = []): array
 it('displays the child login form without retaining a password', function () {
     $this->get('/child/login')
         ->assertOk()
-        ->assertSee('子どもログイン')
+        ->assertSee('お子様ログイン')
         ->assertSee('ログイン情報を保存する')
         ->assertSee('パスワードは保存しません。');
 });
