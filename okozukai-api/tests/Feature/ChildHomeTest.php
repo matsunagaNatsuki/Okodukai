@@ -47,7 +47,7 @@ it('shows the logged in child balance saving goal and recent transactions', func
         ->assertSee('62.5%')
         ->assertSee('文房具')
         ->assertSee('-250円')
-        ->assertSee('つかったものを記録')
+        ->assertSee('おこづかいの記録')
         ->assertSee('ログアウト');
 });
 
@@ -75,8 +75,8 @@ it('uses the default profile image and shows empty states', function () {
         ->get(route('child.home'))
         ->assertOk()
         ->assertSee(asset('images/default-profile.svg'))
-        ->assertSee('まだ貯金目標がありません。')
-        ->assertSee('まだ取引履歴がありません。');
+        ->assertSee('まだためたいお金の設定がありません。')
+        ->assertSee('まだおこづかいの記録がありません。');
 });
 
 it('logs out a child and invalidates authentication', function () {
